@@ -86,3 +86,22 @@ h1 .edition{font-family:inherit;font-weight:500;font-size:10px;letter-spacing:.0
 @media(max-width:767px){body:has(.detail-sheet) .view-controls{visibility:hidden}}
 
 @media(max-height:600px) and (orientation:landscape){body:has(.detail-sheet) .bottom-dock{left:12px;right:324px;width:auto;transform:none;max-width:none;margin:0}}
+
+/* ---- MedSchoolZone brand (brand tokens from medschoolzone.com: blue #1A6BFF, blue-dark #0F4FCC, navy #060D2E, gold #E89B0A) ---- */
+:root{--msz-blue:#1A6BFF;--msz-blue-dark:#0F4FCC;--msz-navy:#060D2E;--msz-gold:#E89B0A;--primary:#0F4FCC;--primary-foreground:#ffffff;--ring:#1A6BFF}
+.identity{display:flex;align-items:center;gap:14px}
+.identity-logo{height:64px;width:80px;object-fit:cover;object-position:center;display:block;flex-shrink:0;filter:drop-shadow(0 1px 2px #060d2e14)}
+.identity-text{min-width:0}
+.identity h1{margin:4px 0 6px;color:var(--msz-navy)}
+.status-dot{background:var(--msz-blue);box-shadow:0 0 12px #1a6bff40}
+.loading-track i{background:var(--msz-blue)}
+button:focus-visible,a:focus-visible{outline-color:var(--msz-blue)}
+.view-controls .active{color:var(--msz-blue-dark);background:#1a6bff14}
+.system-row [data-slot=switch]{--primary:#1A6BFF}
+.primary-action{background:var(--msz-blue-dark);border-color:var(--msz-blue-dark)}
+.primary-action:hover,.primary-action.active{background:var(--msz-blue);border-color:var(--msz-blue)}
+.explode-label output{color:var(--msz-navy)}
+.about-copy a,.source-link{color:var(--msz-blue-dark)}
+.top-actions button.active{color:var(--msz-blue-dark);background:#1a6bff14}
+@media(max-width:767px){.identity{gap:9px}.identity-logo{height:36px;width:45px}.identity h1{font-size:23px;letter-spacing:-.8px;margin:3px 0 4px}.identity-meta{font-size:9px}}
+@media(max-height:600px) and (orientation:landscape){.identity-logo{height:36px;width:45px}}
