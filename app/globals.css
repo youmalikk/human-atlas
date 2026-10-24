@@ -105,3 +105,6 @@ button:focus-visible,a:focus-visible{outline-color:var(--msz-blue)}
 .top-actions button.active{color:var(--msz-blue-dark);background:#1a6bff14}
 @media(max-width:767px){.identity{gap:9px}.identity-logo{height:36px;width:45px}.identity h1{font-size:23px;letter-spacing:-.8px;margin:3px 0 4px}.identity-meta{font-size:9px}}
 @media(max-height:600px) and (orientation:landscape){.identity-logo{height:36px;width:45px}}
+.top-actions .account-link{display:flex;gap:10px;align-items:center;font-size:14px;color:#515d69;padding:12px;border-radius:5px;text-decoration:none;transition:background .18s,color .18s}
+.top-actions .account-link:hover{color:#182536;background:#18253608}
+@media(max-width:767px){.top-actions .account-link{width:38px;height:40px;padding:0;justify-content:center;border-radius:9px}}
