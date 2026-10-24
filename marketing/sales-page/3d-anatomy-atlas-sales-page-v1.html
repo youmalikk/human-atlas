@@ -1,0 +1,489 @@
+<style>
+  /* === Reset & base === */
+  .cf-page * { margin: 0; padding: 0; box-sizing: border-box; }
+  .cf-page {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+    line-height: 1.5;
+    background: #fff;
+    font-size: 17px;
+  }
+  .cf-page img { max-width: 100%; height: auto; display: block; }
+  .cf-page a { color: #0066cc; }
+  /* === Layout === */
+  .cf-wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  /* === Hero === */
+  .cf-hero { text-align: center; padding: 30px 0 24px; }
+  /* === Co-brand lockup (Med symbol x 3D Atlas) === */
+  .cf-cobrand { display: flex; align-items: center; justify-content: center; gap: 26px; margin: 6px auto 18px; }
+  .cf-cobrand img { height: 84px; width: auto; display: block; }
+  .cf-cobrand .cf-x { font-size: 38px; font-weight: bold; color: #9aa4b5; line-height: 1; }
+  .cf-cobrand .cf-3d { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; height: 84px; padding: 0 18px; border: 3px solid #1A6BFF; border-radius: 10px; color: #0F4FCC; font-weight: bold; line-height: 1; letter-spacing: .04em; }
+  .cf-cobrand .cf-3d .big { font-size: 34px; }
+  .cf-cobrand .cf-3d .small { font-size: 12px; letter-spacing: .18em; margin-top: 6px; color: #7a869a; }
+  .cf-cobrand-label { text-align: center; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #7a869a; margin: -6px 0 20px; font-weight: bold; }
+  .cf-headline {
+    font-size: 32px; line-height: 1.2; color: #060D2E; font-weight: bold; margin-bottom: 16px;
+  }
+  .cf-headline .hl-yellow { background: #FFE082; color: #060D2E; padding: 2px 8px; }
+  .cf-subhead { font-size: 20px; color: #333; margin-bottom: 20px; line-height: 1.4; }
+  /* === Hero video (Wistia 16:9) === */
+  .cf-video-wrap {
+    max-width: 640px; margin: 0 auto 22px; border-radius: 8px; overflow: hidden;
+    border: 1px solid #ddd; box-shadow: 0 8px 24px rgba(6,13,46,0.12);
+  }
+  .cf-video-wrap wistia-player { display: block; width: 100%; }
+  /* === Hero video placeholder (16:9) === */
+  .cf-video {
+    position: relative; width: 100%; max-width: 640px; margin: 0 auto 22px;
+    aspect-ratio: 16 / 9; background: #000; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;
+  }
+  .cf-video iframe, .cf-video video {
+    position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  }
+  .cf-video-ph {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    color: #fff; background: linear-gradient(135deg,#0F4FCC,#1A6BFF); padding: 20px;
+  }
+  .cf-video-ph .play {
+    width: 66px; height: 66px; border-radius: 50%; background: rgba(255,255,255,0.18);
+    border: 3px solid #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 26px; margin-bottom: 12px;
+  }
+  .cf-video-ph .t { font-weight: bold; font-size: 15px; letter-spacing: .04em; }
+  .cf-video-ph .s { font-size: 13px; opacity: .9; margin-top: 4px; max-width: 420px; }
+  /* === CTA Button === */
+  .cf-btn {
+    display: inline-block; background: #1A6BFF; color: #fff !important; text-decoration: none;
+    font-weight: bold; font-size: 22px; padding: 18px 32px; border: 2px solid #0F4FCC;
+    border-radius: 6px; text-transform: uppercase; box-shadow: 0 3px 0 #0F4FCC; text-align: center; line-height: 1.2;
+  }
+  .cf-btn:hover { background: #2A7BFF; }
+  .cf-btn-wrap { text-align: center; margin: 24px 0; }
+  .cf-btn-sub { display: block; margin-top: 10px; font-size: 14px; color: #555; }
+  /* === Price === */
+  .cf-price { text-align: center; margin: 16px 0; font-size: 18px; }
+  .cf-price .was { text-decoration: line-through; color: #888; margin-right: 8px; }
+  .cf-price .now { color: #1A6BFF; font-weight: bold; font-size: 28px; }
+  /* === Section headings === */
+  .cf-h2 { font-size: 26px; color: #060D2E; text-align: center; font-weight: bold; margin: 36px 0 16px; line-height: 1.3; }
+  .cf-h2 .hl-yellow { background: #FFE082; color: #060D2E; padding: 2px 8px; }
+  .cf-h3 { font-size: 20px; font-weight: bold; margin: 16px 0 10px; color: #222; }
+  /* === Body text === */
+  .cf-page p { margin-bottom: 14px; }
+  .cf-page strong { color: #000; }
+  /* === Plain bullet list === */
+  .cf-list { list-style: none; margin: 16px 0; padding: 0; }
+  .cf-list li { padding: 8px 0 8px 30px; position: relative; font-size: 17px; line-height: 1.5; }
+  .cf-list li::before { content: "\2713"; position: absolute; left: 0; top: 8px; color: #16A34A; font-weight: bold; font-size: 20px; }
+  /* === X list === */
+  .cf-x-list { list-style: none; margin: 16px 0; padding: 0; }
+  .cf-x-list li { padding: 6px 0 6px 28px; position: relative; font-size: 16px; color: #555; }
+  .cf-x-list li::before { content: "\2717"; position: absolute; left: 0; top: 6px; color: #DC2626; font-weight: bold; font-size: 18px; }
+  /* === Yellow highlight box === */
+  .cf-yellow-box { background: #FFF8E5; border: 2px dashed #E89B0A; padding: 20px; margin: 24px 0; text-align: center; }
+  /* === Trust block === */
+  .cf-trust { margin: 24px 0; }
+  .cf-trust-lead { margin: 0 0 14px; font-size: 18px; color: #060D2E; line-height: 1.5; }
+  .cf-exams { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .cf-exam { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 2px solid #E89B0A; padding: 7px 12px; font-size: 14px; font-weight: bold; color: #060D2E; line-height: 1.2; white-space: nowrap; }
+  .cf-flag { font-size: 17px; line-height: 1; }
+  /* === Stats strip === */
+  .cf-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+  .cf-stat { background: #F2F6FD; border: 1px solid #d6e2f7; border-radius: 8px; padding: 14px 8px; text-align: center; }
+  .cf-stat .n { display: block; font-size: 30px; font-weight: bold; color: #1A6BFF; line-height: 1.1; }
+  .cf-stat .l { display: block; font-size: 13px; color: #46587a; margin-top: 4px; font-weight: bold; letter-spacing: .02em; }
+  /* === Order box === */
+  .cf-order-box { background: #fff; border: 3px solid #1A6BFF; padding: 24px; margin: 30px 0; text-align: center; }
+  .cf-order-box .order-title { background: #1A6BFF; color: #fff; padding: 8px 12px; margin: -24px -24px 16px; font-size: 20px; font-weight: bold; text-transform: uppercase; }
+  .cf-order-box ul { text-align: left; max-width: 480px; margin: 0 auto 20px; }
+  /* === Guarantee box === */
+  .cf-guarantee { border: 2px solid #16A34A; background: #F0FDF4; padding: 20px; margin: 30px 0; text-align: center; }
+  .cf-guarantee-title { color: #16A34A; font-size: 22px; font-weight: bold; margin-bottom: 10px; }
+  /* === Review box === */
+  .cf-review { background: #f9f9f9; border-left: 4px solid #E89B0A; padding: 16px 20px; margin: 16px 0; }
+  .cf-review .stars { color: #E89B0A; font-size: 18px; margin-bottom: 8px; }
+  .cf-review p { font-style: italic; margin-bottom: 8px; }
+  .cf-review .reviewer { font-size: 14px; color: #555; font-weight: bold; }
+  /* === Devices grid === */
+  .cf-devices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+  .cf-device { text-align: center; }
+  .cf-device-label { font-size: 14px; font-weight: bold; color: #333; margin-top: 8px; }
+  /* === Sample / GIF grid === */
+  .cf-samples-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+  .cf-sample { background: #fff; border: 1px solid #ccc; overflow: hidden; aspect-ratio: 1 / 1.414; }
+  .cf-sample img { width: 100%; height: 100%; object-fit: cover; }
+  .cf-sample-label { text-align: center; font-size: 14px; font-weight: bold; color: #333; margin-top: 8px; }
+  /* === Wide screenshot (16:10) === */
+  .cf-wide { background: #fff; border: 1px solid #ccc; overflow: hidden; aspect-ratio: 16 / 10; margin: 20px 0; }
+  .cf-wide img { width: 100%; height: 100%; object-fit: cover; }
+  /* === FAQ === */
+  .cf-faq { margin: 16px 0; }
+  .cf-faq-q { font-weight: bold; color: #1A6BFF; margin-bottom: 4px; font-size: 17px; }
+  .cf-faq-a { margin-bottom: 16px; padding-left: 16px; border-left: 3px solid #ddd; }
+  /* === Countdown === */
+  .cf-countdown { background: #1A6BFF; color: #fff; text-align: center; padding: 14px; margin: 20px 0; font-size: 18px; font-weight: bold; }
+  .cf-countdown .cd-time { font-size: 28px; font-family: 'Courier New', monospace; margin-top: 4px; letter-spacing: 2px; }
+  /* === Divider === */
+  .cf-divider { text-align: center; margin: 30px 0; color: #999; font-size: 20px; letter-spacing: 8px; }
+  /* === Placeholder (SWAP FOR image / GIF) === */
+  .cf-shot { border: 2px dashed #9db4d6; background: #F2F6FD; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #46587a; padding: 16px; width: 100%; height: 100%; min-height: 150px; }
+  .cf-shot .tag { font-weight: bold; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: #1A6BFF; margin-bottom: 6px; }
+  .cf-shot .desc { font-size: 13px; line-height: 1.4; }
+  /* === Systems legend === */
+  .cf-legend { background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 18px 0; }
+  .cf-legend-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cf-chip { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: bold; color: #333; background: #fff; border: 1px solid #e6e6e6; border-radius: 6px; padding: 8px 10px; }
+  .cf-chip .count { margin-left: auto; font-weight: normal; color: #888; font-size: 12px; }
+  .cf-sw { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; }
+  /* === Mobile === */
+  @media (max-width: 600px) {
+    .cf-page { font-size: 16px; }
+    .cf-headline { font-size: 26px; }
+    .cf-subhead { font-size: 17px; }
+    .cf-h2 { font-size: 22px; }
+    .cf-btn { font-size: 18px; padding: 16px 20px; width: 100%; }
+    .cf-cobrand { gap: 16px; }
+    .cf-cobrand img { height: 64px; }
+    .cf-cobrand .cf-3d { height: 64px; padding: 0 12px; }
+    .cf-cobrand .cf-3d .big { font-size: 26px; }
+    .cf-stats { gap: 6px; }
+    .cf-stat .n { font-size: 24px; }
+    .cf-devices { grid-template-columns: 1fr; gap: 14px; }
+    .cf-samples-grid { grid-template-columns: repeat(2, 1fr); }
+    .cf-order-box { padding: 20px 16px; }
+    .cf-order-box .order-title { margin: -20px -16px 16px; font-size: 17px; }
+    .cf-trust-lead { font-size: 16px; }
+    .cf-exams { gap: 6px; }
+    .cf-exam { font-size: 12px; padding: 6px 9px; gap: 5px; }
+    .cf-legend-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<div class="cf-page">
+  <div class="cf-wrap">
+
+    <!-- ========== HERO ========== -->
+    <section class="cf-hero">
+      <h1 class="cf-headline">
+        Every Structure In The Human Body, <span class="hl-yellow">In Interactive 3D</span>, Right In Your Browser
+      </h1>
+      <div class="cf-cobrand">
+        <img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/23209441/file/7bbdaedfa2918330f5b725ddc57e78bc.png" alt="MedSchoolZone">
+        <span class="cf-x">&times;</span>
+        <span class="cf-3d"><span class="big">3D</span><span class="small">ATLAS</span></span>
+      </div>
+      <div class="cf-cobrand-label">Med School, Meet 3D</div>
+      <p class="cf-subhead">
+        Rotate, isolate and explode <strong>2,234 real anatomical structures</strong> across <strong>15 body systems</strong>.
+        Search any of <strong>3,432 named structures</strong> and see exactly where it sits, from any angle, on your phone or laptop.
+        <strong>Nothing to install.</strong>
+      </p>
+
+      <!-- VIDEO PLACEHOLDER: replace this whole .cf-video block with your Wistia embed (same as the Notion page) -->
+      <div class="cf-video">
+        <div class="cf-video-ph">
+          <div class="play">&#9654;</div>
+          <div class="t">VIDEO PLACEHOLDER</div>
+          <div class="s">60 to 90 second screen recording: rotate the body, switch off the muscles, isolate the heart, explode the view. Paste the Wistia embed here.</div>
+        </div>
+      </div>
+
+      <div class="cf-stats">
+        <div class="cf-stat"><span class="n">2,234</span><span class="l">STRUCTURES</span></div>
+        <div class="cf-stat"><span class="n">15</span><span class="l">BODY SYSTEMS</span></div>
+        <div class="cf-stat"><span class="n">3,432</span><span class="l">SEARCHABLE NAMES</span></div>
+      </div>
+
+      <div class="cf-price">
+        <span class="was">$97</span>
+        <span class="now">$47</span>
+      </div>
+      <div class="cf-btn-wrap">
+        <a href="#open-popup" class="cf-btn">Yes! I Want The 3D Atlas →</a>
+        <span class="cf-btn-sub">🔒 Secure Checkout · ⚡ Instant Access · 📱 Works On Every Device · 30-Day Guarantee</span>
+      </div>
+      <div class="cf-countdown">
+        ⏳ THIS DEAL ENDS IN:
+        <div class="cd-time"><span id="cf-h">03</span>:<span id="cf-m">04</span>:<span id="cf-s">33</span></div>
+      </div>
+    </section>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== PAIN ========== -->
+    <h2 class="cf-h2">If You've Ever Tried To Learn Anatomy From Flat Pictures...</h2>
+    <ul class="cf-x-list">
+      <li>Textbook diagrams show one angle and one slice, and you're left guessing what it looks like in 3D</li>
+      <li>You memorise "the ulnar nerve runs behind the medial epicondyle" without ever actually seeing it</li>
+      <li>Cadaver lab is a couple of hours a week, if your school even has one</li>
+      <li>The big 3D anatomy apps charge $50 to $120 a year, per student, and want their own app installed</li>
+      <li>Your notes say "see figure 4.12" and figure 4.12 lives in a 1,000-page book you don't carry around</li>
+      <li>You keep re-learning the same relationships because they never became a picture in your head</li>
+    </ul>
+    <p style="text-align:center; font-size:19px; margin-top:20px;">
+      <strong>You don't need more diagrams. You need to SEE the body, turn it around, and take it apart yourself.</strong>
+    </p>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== INTRODUCING ========== -->
+    <h2 class="cf-h2">Introducing: The MedSchoolZone <span class="hl-yellow">3D Anatomy Atlas</span></h2>
+    <p style="text-align:center; font-size:18px;">
+      A full adult human body you can rotate, strip layer by layer, and pull apart piece by piece.
+      <strong>2,234 structures. 15 systems.</strong> One link, open in any browser, on any device.
+    </p>
+
+    <!-- IMAGE PLACEHOLDER: wide screenshot of the atlas on a laptop -->
+    <div class="cf-wide">
+      <div class="cf-shot">
+        <div class="tag">Image placeholder · 16:10</div>
+        <div class="desc">Full-screen screenshot of the atlas on desktop: body in three-quarter view, Systems panel open on the left, a structure selected with its detail card.</div>
+      </div>
+    </div>
+
+    <h3 class="cf-h3">Here's exactly what you get:</h3>
+    <ul class="cf-list">
+      <li><strong>2,234 individually selectable structures.</strong> Every bone, muscle, artery, vein, nerve and organ is its own piece you can tap</li>
+      <li><strong>15 body systems you switch on and off:</strong> skeleton, muscles, heart, arteries, veins, nervous system, respiratory, digestive, urinary, endocrine, lymphatic, reproductive, sensory organs, connective tissue and body surface</li>
+      <li><strong>Search 3,432 named structures</strong> and jump straight to any of them, from "left coronary artery" to "lesser trochanter"</li>
+      <li><strong>Isolate any structure</strong> to see it on its own, with a short plain-English explanation of what it is and what it does</li>
+      <li><strong>Explode view:</strong> spread every visible piece apart to see what sits behind what</li>
+      <li><strong>Four camera presets</strong> (three-quarter, front, side, back) plus free rotation and zoom</li>
+      <li><strong>Skeleton and Organs presets</strong> for one-tap switching between views</li>
+      <li><strong>Runs in your browser</strong> on phone, tablet and laptop. Nothing to download, nothing to update</li>
+      <li><strong>Lifetime access</strong> with free updates</li>
+    </ul>
+
+    <div class="cf-yellow-box cf-trust">
+      <p class="cf-trust-lead">
+        <strong>Built for the exams you're actually sitting:</strong>
+      </p>
+      <div class="cf-exams">
+        <span class="cf-exam"><span class="cf-flag">🇺🇸</span> USMLE Step 1/2/3</span>
+        <span class="cf-exam"><span class="cf-flag">🇺🇸</span> COMLEX</span>
+        <span class="cf-exam"><span class="cf-flag">🇬🇧</span> PLAB</span>
+        <span class="cf-exam"><span class="cf-flag">🇬🇧</span> UKMLA</span>
+        <span class="cf-exam"><span class="cf-flag">🇨🇦</span> MCCQE</span>
+        <span class="cf-exam"><span class="cf-flag">🇦🇺</span> AMC</span>
+        <span class="cf-exam"><span class="cf-flag">🌍</span> IFOM</span>
+      </div>
+    </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== SEE IT IN ACTION (GIFs) ========== -->
+    <h2 class="cf-h2">See It <span class="hl-yellow">In Action</span></h2>
+    <p style="text-align:center;">Three things you'll do in your first 30 seconds inside the atlas.</p>
+    <div class="cf-samples-grid">
+      <!-- GIF PLACEHOLDERS: 3 short screen-recorded GIFs, portrait or square, 5 to 8 seconds each -->
+      <div>
+        <div class="cf-sample"><div class="cf-shot"><div class="tag">GIF placeholder 1</div><div class="desc">Drag to rotate the body, then tap a muscle to select it.</div></div></div>
+        <div class="cf-sample-label">🔄 Rotate &amp; Tap</div>
+      </div>
+      <div>
+        <div class="cf-sample"><div class="cf-shot"><div class="tag">GIF placeholder 2</div><div class="desc">Switch off skeleton and muscles, isolate the heart, read its card.</div></div></div>
+        <div class="cf-sample-label">🎯 Isolate Any Structure</div>
+      </div>
+      <div>
+        <div class="cf-sample"><div class="cf-shot"><div class="tag">GIF placeholder 3</div><div class="desc">Slide the Explode control from 0% to 100%.</div></div></div>
+        <div class="cf-sample-label">💥 Explode View</div>
+      </div>
+    </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== SYSTEMS ========== -->
+    <h2 class="cf-h2">All 15 Systems. <span class="hl-yellow">One Body.</span></h2>
+    <p style="text-align:center;">Switch any system on or off with one tap. Study the arteries alone, the nerves over the skeleton, or everything at once.</p>
+    <div class="cf-legend">
+      <div class="cf-legend-grid">
+        <div class="cf-chip"><span class="cf-sw" style="background:#e2d9ba"></span>Skeleton<span class="count">296</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#a85b50"></span>Muscles<span class="count">402</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#b96760"></span>Heart<span class="count">23</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#c05245"></span>Arteries<span class="count">639</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#527c9f"></span>Veins<span class="count">404</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#d8b565"></span>Nervous system<span class="count">139</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#b98991"></span>Respiratory<span class="count">119</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#b8916b"></span>Digestive<span class="count">97</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#b0c8ce"></span>Sensory organs<span class="count">45</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#aec3bb"></span>Connective tissue<span class="count">40</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#bda098"></span>Reproductive<span class="count">12</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#b47961"></span>Urinary<span class="count">6</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#ba9b7d"></span>Body surface<span class="count">5</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#c5a09a"></span>Endocrine<span class="count">4</span></div>
+        <div class="cf-chip"><span class="cf-sw" style="background:#879f7c"></span>Lymphatic<span class="count">3</span></div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:15px; color:#666; font-style:italic; margin-top:8px;">
+      ↑ Number of individually selectable pieces in each system.
+    </p>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== DEVICES ========== -->
+    <h2 class="cf-h2">Study On <span class="hl-yellow">Any Device</span>, Anywhere</h2>
+    <p style="text-align:center;">Phone on the bus. Laptop at the library. Tablet on the couch. It's a link, not an app, so it works everywhere you have a browser.</p>
+    <div class="cf-devices">
+      <!-- IMAGE PLACEHOLDERS: the atlas open on each device, 16:10 crops -->
+      <div class="cf-device">
+        <div class="cf-sample" style="aspect-ratio:16/10;"><div class="cf-shot"><div class="tag">Image placeholder</div><div class="desc">Atlas on a phone, Systems panel open.</div></div></div>
+        <div class="cf-device-label">📱 On Phone</div>
+      </div>
+      <div class="cf-device">
+        <div class="cf-sample" style="aspect-ratio:16/10;"><div class="cf-shot"><div class="tag">Image placeholder</div><div class="desc">Atlas on a laptop, structure isolated.</div></div></div>
+        <div class="cf-device-label">💻 On Laptop</div>
+      </div>
+      <div class="cf-device">
+        <div class="cf-sample" style="aspect-ratio:16/10;"><div class="cf-shot"><div class="tag">Image placeholder</div><div class="desc">Atlas on a tablet, exploded view.</div></div></div>
+        <div class="cf-device-label">📚 On Tablet</div>
+      </div>
+    </div>
+    <div class="cf-btn-wrap">
+      <a href="#open-popup" class="cf-btn">Get The 3D Atlas For $47 →</a>
+    </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== BONUSES (edit or delete this section) ========== -->
+    <h2 class="cf-h2">⚡ PLUS: 2 FREE Bonuses (Today Only)</h2>
+    <p style="text-align:center;">Order today and you'll also get these extras at <strong>no extra cost</strong>:</p>
+    <ul class="cf-list">
+      <li><strong>BONUS #1: The 5-Minute Quick-Start Walkthrough.</strong> A short video showing exactly how to use every control, so you're studying in minutes, not figuring out buttons <em>(Value: $17)</em></li>
+      <li><strong>BONUS #2: Priority Email Support.</strong> A direct line to our team for questions and feature requests <em>(Value: $14)</em></li>
+    </ul>
+    <div class="cf-yellow-box">
+      <p style="margin:0; font-size:20px;">
+        <strong>Total Bonus Value: $31</strong><br>
+        <span style="color:#1A6BFF; font-size:18px;">Yours FREE when you order today</span>
+      </p>
+    </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== REVIEWS (placeholders: add real student feedback after launch, or delete this section) ========== -->
+    <h2 class="cf-h2">What Med Students Are Saying...</h2>
+    <div class="cf-review">
+      <div class="stars">★★★★★</div>
+      <p>[REVIEW PLACEHOLDER: paste a real student review here once the first buyers write in.]</p>
+      <div class="reviewer">- Name, Exam · Country</div>
+    </div>
+    <div class="cf-review">
+      <div class="stars">★★★★★</div>
+      <p>[REVIEW PLACEHOLDER: a second real review.]</p>
+      <div class="reviewer">- Name, Exam · Country</div>
+    </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== ORDER BOX ========== -->
+    <h2 class="cf-h2">Here's <span class="hl-yellow">EVERYTHING</span> You Get Today:</h2>
+    <div class="cf-order-box" id="order">
+      <div class="order-title">★ Your Complete 3D Anatomy Atlas ★</div>
+      <ul class="cf-list">
+        <li>The full MedSchoolZone 3D Anatomy Atlas <strong>($97 value)</strong></li>
+        <li>2,234 individually selectable structures <strong>(included)</strong></li>
+        <li>15 body systems you can toggle on and off <strong>(included)</strong></li>
+        <li>Search across 3,432 named structures <strong>(included)</strong></li>
+        <li>Isolate, explode and four camera presets <strong>(included)</strong></li>
+        <li>Works on phone, tablet and laptop, no app needed <strong>(included)</strong></li>
+        <li>Lifetime Access + Free Updates <strong>(included)</strong></li>
+        <li>BONUS #1: 5-Minute Quick-Start Walkthrough <strong>($17 value)</strong></li>
+        <li>BONUS #2: Priority Email Support <strong>($14 value)</strong></li>
+      </ul>
+      <p style="font-size:18px; margin: 20px 0 8px;">
+        <strong>Total Value: <span style="text-decoration:line-through; color:#888;">$128</span></strong>
+      </p>
+      <p style="font-size:20px; margin-bottom: 8px;">Today's Price:</p>
+      <p style="font-size:48px; color:#1A6BFF; font-weight:bold; margin-bottom: 20px; line-height:1;">Just $47</p>
+      <a href="#open-popup" class="cf-btn" style="font-size:24px;">YES! I Want Instant Access →</a>
+      <p style="margin-top:16px; font-size:14px; color:#555;">
+        🔒 Secure SSL Checkout · 💳 Pay With Card · ⚡ Instant Access
+      </p>
+    </div>
+
+    <div class="cf-guarantee">
+      <div class="cf-guarantee-title">🛡️ 100% Money-Back Guarantee</div>
+      <p>Use the atlas for <strong>30 days</strong>. If it doesn't make anatomy click for you, for ANY reason, email us and we'll refund every penny. No questions asked.</p>
+      <p style="margin-top:10px;"><strong>You literally cannot lose.</strong></p>
+    </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== FAQ ========== -->
+    <h2 class="cf-h2">Frequently Asked Questions</h2>
+    <div class="cf-faq">
+      <div class="cf-faq-q">Q: Do I need to install an app?</div>
+      <div class="cf-faq-a">No. The atlas runs in your browser. After checkout it appears in your MedSchoolZone member area and opens with one click, on any device.</div>
+
+      <div class="cf-faq-q">Q: Does it work on my phone?</div>
+      <div class="cf-faq-a">Yes. Phone, tablet and laptop all work, with touch controls on mobile. A laptop gives you the biggest view and the most detail.</div>
+
+      <div class="cf-faq-q">Q: Do I need an internet connection?</div>
+      <div class="cf-faq-a">Yes. The first time you open it, your browser downloads about 30 MB of 3D geometry (a minute on a normal connection). After that it opens almost instantly.</div>
+
+      <div class="cf-faq-q">Q: Is it the whole body?</div>
+      <div class="cf-faq-a">Yes. Head to toe: 2,234 structures across all 15 systems. It's built on an adult male reference anatomy, so the reproductive system shown is male.</div>
+
+      <div class="cf-faq-q">Q: Where does the anatomy come from?</div>
+      <div class="cf-faq-a">From BodyParts3D, a reference dataset built by a life-science database centre and used in universities worldwide, adapted for the browser and labelled with standard anatomical names. Full credits are inside the atlas.</div>
+
+      <div class="cf-faq-q">Q: Do I get lifetime access?</div>
+      <div class="cf-faq-a">Yes. Pay once, keep it forever, including every future update.</div>
+
+      <div class="cf-faq-q">Q: Which exams is this good for?</div>
+      <div class="cf-faq-a">USMLE Step 1, 2 &amp; 3, PLAB / UKMLA, MCCQE, AMC, COMLEX, and IFOM. Anatomy is anatomy.</div>
+
+      <div class="cf-faq-q">Q: What if I don't like it?</div>
+      <div class="cf-faq-a">Email us within 30 days and we'll refund 100% of your money. No questions, no hoops.</div>
+    </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== CLOSE ========== -->
+    <h2 class="cf-h2">Stop Guessing From Diagrams. <span class="hl-yellow">Start Seeing The Body.</span></h2>
+    <p style="text-align:center; font-size:17px;">
+      You can keep flipping between flat pictures and hoping it comes together in your head... <strong>or</strong> open the body in 3D, turn it around, and take it apart until it makes sense.
+    </p>
+    <p style="text-align:center; font-size:17px; margin-bottom: 20px;">
+      The atlas is $47. The bonuses are free. The guarantee means zero risk. <strong>The only thing left is your decision.</strong>
+    </p>
+    <div class="cf-btn-wrap">
+      <a href="#open-popup" class="cf-btn">Get The 3D Anatomy Atlas For $47 →</a>
+      <span class="cf-btn-sub">Instant access · Lifetime updates · 30-day money-back guarantee</span>
+    </div>
+    <p style="text-align:center; margin-top: 20px; font-size:15px; color:#555;">
+      P.S. This $47 price is a limited-time launch offer. Once the timer hits zero, the price goes back to <strong>$97</strong>. Don't miss it.
+    </p>
+
+  </div>
+</div>
+
+<script>
+  // Persistent countdown (same behaviour as the Notion library page, separate key)
+  (function() {
+    var KEY = 'msz_atlas_countdown_end';
+    var DURATION = (3 * 60 * 60 + 4 * 60 + 33) * 1000;
+    var endTime = parseInt(localStorage.getItem(KEY) || '0', 10);
+    var now = Date.now();
+    if (!endTime || now >= endTime) {
+      endTime = now + DURATION;
+      try { localStorage.setItem(KEY, endTime.toString()); } catch (e) {}
+    }
+    var hEl = document.getElementById('cf-h');
+    var mEl = document.getElementById('cf-m');
+    var sEl = document.getElementById('cf-s');
+    function tick() {
+      var remaining = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
+      var h = Math.floor(remaining / 3600);
+      var m = Math.floor((remaining % 3600) / 60);
+      var s = remaining % 60;
+      if (hEl) hEl.textContent = String(h).padStart(2, '0');
+      if (mEl) mEl.textContent = String(m).padStart(2, '0');
+      if (sEl) sEl.textContent = String(s).padStart(2, '0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
