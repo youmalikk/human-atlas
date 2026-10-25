@@ -119,6 +119,9 @@
   .cf-samples-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
   .cf-sample { background: #fff; border: 1px solid #ccc; overflow: hidden; aspect-ratio: 1 / 1.414; }
   .cf-sample img { width: 100%; height: 100%; object-fit: cover; }
+  .cf-sample.cf-sample-auto { aspect-ratio: auto; }
+  .cf-sample.cf-sample-auto img { height: auto !important; max-height: none !important; object-fit: initial; display: block; }
+  .cf-samples-grid { align-items: start; }
   .cf-sample-label { text-align: center; font-size: 14px; font-weight: bold; color: #333; margin-top: 8px; }
   /* === Wide screenshot (16:10) === */
   .cf-wide { background: #fff; border: 1px solid #ccc; overflow: hidden; aspect-ratio: 16 / 10; margin: 20px 0; }
@@ -280,17 +283,17 @@
     <h2 class="cf-h2">See It <span class="hl-yellow">In Action</span></h2>
     <p style="text-align:center;">Three things you'll do in your first 30 seconds inside the atlas.</p>
     <div class="cf-samples-grid">
-      <!-- GIF PLACEHOLDERS: 3 short screen-recorded GIFs, portrait or square, 5 to 8 seconds each -->
+      <!-- 3 phone screen recordings, shown at their own ratio (no cropping) -->
       <div>
-        <div class="cf-sample"><div class="cf-shot"><div class="tag">GIF placeholder 1</div><div class="desc">Drag to rotate the body, then tap a muscle to select it.</div></div></div>
+        <div class="cf-sample cf-sample-auto"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24081084/file/5975a0a4e4fb68ca28aa8e7f7f98c203.gif" alt="Rotating the body and tapping a muscle to select it" loading="lazy"></div>
         <div class="cf-sample-label">🔄 Rotate &amp; Tap</div>
       </div>
       <div>
-        <div class="cf-sample"><div class="cf-shot"><div class="tag">GIF placeholder 2</div><div class="desc">Switch off skeleton and muscles, isolate the heart, read its card.</div></div></div>
+        <div class="cf-sample cf-sample-auto"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24081135/file/87c4c06cfa5b8ac8829d8d8c16c9f7fd.gif" alt="Isolating the heart and reading its card" loading="lazy"></div>
         <div class="cf-sample-label">🎯 Isolate Any Structure</div>
       </div>
       <div>
-        <div class="cf-sample"><div class="cf-shot"><div class="tag">GIF placeholder 3</div><div class="desc">Slide the Explode control from 0% to 100%.</div></div></div>
+        <div class="cf-sample cf-sample-auto"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24081200/file/8d0a12f5d560aa53ce04f33ca3c0fedc.gif" alt="Explode view spreading every structure apart" loading="lazy"></div>
         <div class="cf-sample-label">💥 Explode View</div>
       </div>
     </div>
