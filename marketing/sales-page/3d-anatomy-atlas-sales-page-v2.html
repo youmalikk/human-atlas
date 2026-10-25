@@ -94,9 +94,10 @@
   .cf-stat .n { display: block; font-size: 30px; font-weight: bold; color: #1A6BFF; line-height: 1.1; }
   .cf-stat .l { display: block; font-size: 13px; color: #46587a; margin-top: 4px; font-weight: bold; letter-spacing: .02em; }
   /* === Subject covers grid (all 22, same as the bundle page) === */
-  .cf-covers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px 0 0; padding: 16px; background: #f9f9f9; border: 1px solid #ddd; }
-  .cf-cover { background: #fff; border: 1px solid #ddd; padding: 4px; aspect-ratio: 3/4; overflow: hidden; }
-  .cf-cover img { width: 100%; height: 100%; object-fit: contain; }
+  .cf-covers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; align-items: start; margin: 20px 0 0; padding: 16px; background: #f9f9f9; border: 1px solid #ddd; }
+  /* No fixed box around the covers: each image keeps its own height, so nothing gets cut off on phones. */
+  .cf-cover { background: #fff; border: 1px solid #ddd; padding: 4px; }
+  .cf-cover img { width: 100%; height: auto !important; max-height: none !important; object-fit: initial; display: block; }
   .cf-cover-caption { text-align: center; font-size: 13px; color: #666; margin-top: 8px; font-style: italic; }
   /* === Order box === */
   .cf-order-box { background: #fff; border: 3px solid #1A6BFF; padding: 24px; margin: 30px 0; text-align: center; }
