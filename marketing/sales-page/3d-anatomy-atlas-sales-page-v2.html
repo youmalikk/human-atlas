@@ -128,6 +128,8 @@
   /* === Wide screenshot (16:10) === */
   .cf-wide { background: #fff; border: 1px solid #ccc; overflow: hidden; aspect-ratio: 16 / 10; margin: 20px 0; }
   .cf-wide img { width: 100%; height: 100%; object-fit: cover; }
+  .cf-wide.cf-wide-auto { aspect-ratio: auto; }
+  .cf-wide.cf-wide-auto img { height: auto; object-fit: initial; }
   /* === FAQ === */
   .cf-faq { margin: 16px 0; }
   .cf-faq-q { font-weight: bold; color: #1A6BFF; margin-bottom: 4px; font-size: 17px; }
@@ -252,12 +254,9 @@
       <strong>2,234 structures. 15 systems.</strong> One link, open in any browser, on any device.
     </p>
 
-    <!-- IMAGE PLACEHOLDER: wide screenshot of the atlas on a laptop -->
-    <div class="cf-wide">
-      <div class="cf-shot">
-        <div class="tag">Image placeholder · 16:10</div>
-        <div class="desc">Full-screen screenshot of the atlas on desktop: body in three-quarter view, Systems panel open on the left, a structure selected with its detail card.</div>
-      </div>
+    <!-- Wide GIF: the atlas on desktop (shown at its own ratio, no cropping) -->
+    <div class="cf-wide cf-wide-auto">
+      <img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24075494/file/f7e311e80c87b033f67d101fb4acdb10.gif" alt="MedSchoolZone 3D Anatomy Atlas on desktop: rotating the body and selecting a structure" loading="lazy">
     </div>
 
     <h3 class="cf-h3">Here's exactly what you get:</h3>
