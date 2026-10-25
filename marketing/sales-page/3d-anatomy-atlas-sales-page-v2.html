@@ -112,7 +112,7 @@
   .cf-review p { font-style: italic; margin-bottom: 8px; }
   .cf-review .reviewer { font-size: 14px; color: #555; font-weight: bold; }
   /* === Devices grid === */
-  .cf-devices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+  .cf-devices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: start; margin: 20px 0; }
   .cf-device { text-align: center; }
   .cf-device-label { font-size: 14px; font-weight: bold; color: #333; margin-top: 8px; }
   /* === Sample / GIF grid === */
@@ -332,17 +332,16 @@
     <h2 class="cf-h2">Study On <span class="hl-yellow">Any Device</span>, Anywhere</h2>
     <p style="text-align:center;">Phone on the bus. Laptop at the library. Tablet on the couch. It's a link, not an app, so it works everywhere you have a browser.</p>
     <div class="cf-devices">
-      <!-- IMAGE PLACEHOLDERS: the atlas open on each device, 16:10 crops -->
       <div class="cf-device">
-        <div class="cf-sample" style="aspect-ratio:16/10;"><div class="cf-shot"><div class="tag">Image placeholder</div><div class="desc">Atlas on a phone, Systems panel open.</div></div></div>
+        <div class="cf-sample cf-sample-auto"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24086070/file/5a0167ef56b97aa8bb29b01313655bc8.jpg" alt="3D Anatomy Atlas on a phone" loading="lazy"></div>
         <div class="cf-device-label">📱 On Phone</div>
       </div>
       <div class="cf-device">
-        <div class="cf-sample" style="aspect-ratio:16/10;"><div class="cf-shot"><div class="tag">Image placeholder</div><div class="desc">Atlas on a laptop, structure isolated.</div></div></div>
+        <div class="cf-sample cf-sample-auto"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24086071/file/12dde8bacd308850404c86a7febdfec2.jpg" alt="3D Anatomy Atlas on a laptop" loading="lazy"></div>
         <div class="cf-device-label">💻 On Laptop</div>
       </div>
       <div class="cf-device">
-        <div class="cf-sample" style="aspect-ratio:16/10;"><div class="cf-shot"><div class="tag">Image placeholder</div><div class="desc">Atlas on a tablet, exploded view.</div></div></div>
+        <div class="cf-sample cf-sample-auto"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24086072/file/9b474e591a8bc59cc45edc7cc96a14fc.jpg" alt="3D Anatomy Atlas on a tablet" loading="lazy"></div>
         <div class="cf-device-label">📚 On Tablet</div>
       </div>
     </div>
