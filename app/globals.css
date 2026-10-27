@@ -108,3 +108,98 @@ button:focus-visible,a:focus-visible{outline-color:var(--msz-blue)}
 .top-actions .account-link{display:flex;gap:10px;align-items:center;font-size:14px;color:#515d69;padding:12px;border-radius:5px;text-decoration:none;transition:background .18s,color .18s}
 .top-actions .account-link:hover{color:#182536;background:#18253608}
 @media(max-width:767px){.top-actions .account-link{width:38px;height:40px;padding:0;justify-content:center;border-radius:9px}}
+
+/* ---- 3D organ views ---- */
+.organ-view{position:absolute;inset:0;z-index:60;background:radial-gradient(ellipse at 44% 44%,#ffffff 0%,#f1f3f5 52%,#e3e7eb 100%);overflow:hidden}
+.organ-view.organ-thumb{background:transparent}
+.organ-canvas{position:absolute;inset:0}.organ-canvas canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}.organ-canvas canvas:active{cursor:grabbing}
+.organ-pins{position:absolute;inset:0;pointer-events:none;z-index:5}.organ-pins.hidden{display:none}
+.organ-pin{position:absolute;left:0;top:0;margin:-12px 0 0 -12px;display:flex;align-items:center;gap:7px;padding:0;border:0;background:none;opacity:0;pointer-events:none;transition:opacity .18s;will-change:transform}
+.organ-pin.shown{opacity:1;pointer-events:auto}
+.organ-pin-dot{width:24px;height:24px;border-radius:50%;background:#ffffffe6;box-shadow:0 0 0 1px #18253626,0 3px 8px #18253624;display:grid;place-items:center;flex-shrink:0;transition:transform .15s}
+.organ-pin-dot::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--pin);box-shadow:0 0 0 2px #fff}
+.organ-pin-label{background:#1b2a39f2;color:#fff;font-size:12px;line-height:1.3;padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s;pointer-events:none;box-shadow:0 4px 14px #1825362e}
+.organ-pin:hover .organ-pin-label,.organ-pin:focus-visible .organ-pin-label,.organ-pin.selected .organ-pin-label{opacity:1;transform:none}
+.organ-pin:hover .organ-pin-dot,.organ-pin.selected .organ-pin-dot{transform:scale(1.12)}
+.organ-pin.selected .organ-pin-dot{background:#1A6BFF;box-shadow:0 0 0 3px #1a6bff40,0 3px 8px #18253624}
+button.organ-pin:not([data-slot]):hover{background:none}
+.organ-top{position:absolute;top:26px;left:28px;display:flex;align-items:center;gap:18px;z-index:10;pointer-events:none}
+.organ-top>*{pointer-events:auto}
+.organ-back{height:42px;padding:0 14px 0 12px;border:1px solid var(--border)!important;background:#ffffffe0!important;border-radius:10px;font-size:13px;display:flex;gap:8px;align-items:center;color:#3c4956;box-shadow:0 2px 8px #1825360a}
+.organ-back:hover{background:#fff!important}
+.organ-heading{pointer-events:none}.organ-heading h2{font-size:30px;font-weight:600;letter-spacing:-1px;line-height:1.1;margin:5px 0 0;color:var(--msz-navy)}
+.organ-card{position:absolute;right:24px;top:24px;bottom:24px;width:344px;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;z-index:10}
+.organ-card-handle{display:none!important}
+.organ-card-body{overflow-y:auto;overscroll-behavior:contain;padding:22px 20px 16px;flex:1;display:flex;flex-direction:column;gap:18px;scrollbar-width:thin;scrollbar-color:#b9c3cc transparent}
+.organ-title-row{display:flex;gap:12px;align-items:center}
+.organ-title-thumb{width:52px;height:52px;object-fit:contain;border-radius:12px;background:linear-gradient(160deg,#ffffff,#eef1f4);box-shadow:inset 0 0 0 1px #18253610;flex-shrink:0}
+.organ-intro h3,.organ-selected h3{font-size:22px;font-weight:600;letter-spacing:-.5px;margin:0;color:#1f2a36;line-height:1.2}
+.organ-latin{font-size:12px;color:#7c8793;font-style:italic}
+.organ-intro{display:flex;flex-direction:column;gap:14px}
+.organ-summary{font-size:14px;line-height:1.6;color:#55616d;margin:0}
+.organ-facts{margin:0;border-top:1px solid #18253612}.organ-facts>div{padding:9px 0;border-bottom:1px solid #18253612}
+.organ-facts dt{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#7c8793;font-weight:600}.organ-facts dd{margin:3px 0 0;font-size:13px;color:#26313c;line-height:1.45}
+.organ-note{display:flex;gap:10px;background:#1a6bff0b;border:1px solid #1a6bff24;border-radius:10px;padding:12px;font-size:13px;line-height:1.55;color:#2b3f5c;margin:0}.organ-note svg{color:var(--msz-blue);margin-top:2px;flex-shrink:0}.organ-note strong{font-weight:600;color:var(--msz-blue-dark)}
+.organ-structures h4{font-size:12px;font-weight:600;color:#26313c;margin:0;display:flex;justify-content:space-between;align-items:center;letter-spacing:.02em}.organ-structures h4 span{font-size:10px;background:#eef1f3;color:#687582;border-radius:6px;padding:2px 7px;font-weight:500}
+.organ-structures ul{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-direction:column;gap:1px}
+.organ-structures li button{width:100%;display:flex;gap:10px;align-items:center;min-height:38px;padding:6px 8px;border-radius:8px;font-size:13px;color:#394957;text-align:left;line-height:1.35}
+.organ-structures li button.active{background:#1a6bff12;color:var(--msz-blue-dark);font-weight:500}
+.organ-swatch{width:11px;height:11px;border-radius:3px;flex-shrink:0;box-shadow:inset 0 0 0 1px #0000001a}
+.organ-selected{border:1px solid #1a6bff33;background:#fff;border-radius:12px;padding:14px;box-shadow:0 6px 18px #1a6bff0f}
+.organ-selected-head{display:flex;gap:10px;align-items:flex-start}.organ-selected-head .organ-swatch{margin-top:26px}.organ-selected h3{font-size:18px;margin-top:4px}
+.organ-selected-group{font-size:12px;color:#6b7783;margin:3px 0 0}
+.organ-selected-desc{font-size:13.5px;line-height:1.6;color:#4b5864;margin:10px 0 12px}
+.organ-selected-actions{display:flex;gap:8px;flex-wrap:wrap}
+.organ-chip{display:inline-flex!important;gap:6px;align-items:center;height:34px;padding:0 12px!important;border-radius:8px;border:1px solid #18253620!important;background:#fff!important;font-size:12px;color:#3c4956}
+.organ-chip:hover{background:#f6f8fa!important}
+.organ-chip.active{background:var(--msz-blue-dark)!important;color:#fff;border-color:var(--msz-blue-dark)!important}
+.organ-icon-btn{margin-left:auto;width:32px;height:32px;border-radius:8px;display:grid!important;place-items:center;color:#6b7783;flex-shrink:0}
+.organ-source{font-size:11px;line-height:1.5;color:#8a949e;margin:auto 0 0}
+.organ-dock{position:absolute;bottom:24px;left:calc((100% - 368px)/2);transform:translateX(-50%);width:min(620px,calc(100% - 430px));display:flex;align-items:center;gap:18px;padding:14px 16px 14px 20px;border-radius:16px;z-index:10}
+.organ-dock .explode-control{min-width:140px}
+.organ-tools{display:flex;gap:2px;flex-shrink:0}
+.organ-tool{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:58px;max-width:96px;min-height:50px;padding:6px 8px!important;border-radius:10px;font-size:10px;line-height:1.2;color:#687683;text-align:center}
+.organ-tool.active{color:var(--msz-blue-dark);background:#1a6bff12!important}
+.organ-loading{z-index:20}.organ-loading>div{min-width:220px}
+.organ-hover{z-index:45}
+/* Entry points */
+.organ-strip{padding:2px 0 12px;border-bottom:1px solid #18253612;margin-bottom:12px}
+.organ-strip-head{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;color:#26313c;padding:0 3px 9px}
+.organ-strip-head span:last-child{font-size:10px;font-weight:500;background:#eef1f3;color:#687582;height:21px;padding:0 7px;border-radius:6px;display:inline-flex;align-items:center}
+.organ-strip-row{display:flex;gap:6px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;padding-bottom:2px;mask-image:linear-gradient(90deg,#000 85%,transparent)}
+.organ-strip-row::-webkit-scrollbar{display:none}
+.organ-tile{flex:0 0 74px;display:flex!important;flex-direction:column;align-items:center;gap:5px;padding:7px 4px 8px!important;border-radius:11px;background:linear-gradient(165deg,#ffffff,#f1f3f6)!important;box-shadow:inset 0 0 0 1px #1825360f;font-size:11px;color:#3c4956;line-height:1.2;text-align:center}
+.organ-tile:hover{box-shadow:inset 0 0 0 1px #1a6bff55}
+.organ-tile img{width:54px;height:54px;object-fit:contain;display:block}
+.organs-panel{position:absolute;z-index:30;left:12px;right:12px;bottom:calc(140px + env(safe-area-inset-bottom));max-height:calc(100dvh - 270px);border-radius:16px;padding:10px 14px 14px;background:#fffffff5;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.organs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;overflow-y:auto;overscroll-behavior:contain}
+.organs-grid .organ-tile{flex:none;width:auto;min-height:96px;font-size:12px}.organs-grid .organ-tile img{width:58px;height:58px}
+.organ-open-link{display:flex!important;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid #1a6bff40!important;color:var(--msz-blue-dark)!important;border-radius:9px;font-size:12px;font-weight:500;margin-bottom:2px}
+.dock-organs{flex-direction:column;align-items:center;gap:8px;font-size:10px;padding:9px 8px 9px 0;border-right:1px solid #18253618;height:auto;border-radius:0;font-weight:400}
+@media(max-width:1100px) and (min-width:768px){.organ-card{width:300px}.organ-dock{left:calc((100% - 324px)/2);width:min(560px,calc(100% - 360px))}.organ-tool span{font-size:9px}}
+@media(max-width:767px){
+ .organ-top{top:max(14px,env(safe-area-inset-top));left:12px;right:12px;gap:12px}
+ .organ-back{width:44px;height:44px;padding:0!important;justify-content:center}.organ-back span{display:none}
+ .organ-heading .eyebrow{font-size:9px}.organ-heading h2{font-size:22px;margin-top:3px}
+ .organ-card{left:12px;right:12px;top:auto;bottom:calc(12px + env(safe-area-inset-bottom));width:auto;max-height:62px;transition:max-height .25s ease}
+ .organ-card.open{max-height:64dvh;z-index:12}
+ .organ-card-handle{display:flex!important;width:100%;min-height:62px;padding:10px 16px!important;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;text-align:left;color:#3c4956}
+ .organ-card-handle-text{display:flex;flex-direction:column;min-width:0}.organ-card-handle-text strong{font-size:15px;font-weight:600;color:#1f2a36;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.organ-card-handle-text span{font-size:12px;color:#7c8793;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .organ-card-body{display:none;padding:2px 16px 16px}.organ-card.open .organ-card-body{display:flex}
+ .organ-view:has(.organ-card.open) .organ-dock{visibility:hidden}
+ .organ-dock{left:12px;right:12px;bottom:calc(84px + env(safe-area-inset-bottom));transform:none;width:auto;flex-direction:column;align-items:stretch;gap:6px;padding:12px 12px 8px}
+ .organ-tools{justify-content:space-between}.organ-tool{flex:1;min-width:0;min-height:48px}
+ .organ-pin-label{font-size:11px;padding:5px 8px}
+ .organ-intro h3{font-size:20px}
+ .dock-organs{min-width:44px;min-height:48px}
+}
+@media(max-height:600px) and (orientation:landscape){
+ .organ-top{top:12px;left:16px}.organ-heading h2{font-size:22px}
+ .organ-card{top:12px;bottom:12px;right:12px;width:290px;max-height:none}.organ-card-handle{display:none!important}.organ-card-body{display:flex}
+ .organ-dock{bottom:12px;left:calc((100% - 302px)/2);transform:translateX(-50%);width:min(520px,calc(100% - 330px));flex-direction:row;padding:8px 12px}
+}
+/* Slider track (the track had no height, so only the thumb showed). */
+.explode-control [data-slot=slider-track]{height:4px;border-radius:999px;background:#e2e7eb}
+.explode-control [data-slot=slider-range]{height:100%;border-radius:999px;background:var(--msz-blue)}
+html:has(.organ-thumb),html:has(.organ-thumb) body,html:has(.organ-thumb) #root{background:transparent!important}
+@media(max-width:767px){.organ-card .organ-title-row{display:none}}
