@@ -26,7 +26,12 @@ export interface OrganDef {
  facts:{label:string;value:string}[];note:string;
  view:{az:number;el:number};
  inside?:OrganInside;
+ /** Explode strength (1 = standard full separation). */
  explode:number;
+ /** Enclosing surfaces that fade away as the organ explodes, so the inside is revealed. */
+ shells?:string[];
+ /** Groups normally hidden that appear once the organ starts exploding (e.g. liver segments under the capsule). */
+ explodeReveal?:string[];
  /** Credit line for the model shown in the fact card. */
  source:string;
  groups:OrganGroup[];
@@ -36,7 +41,7 @@ export const ORGANS:OrganDef[]=[
  {id:'heart',name:'Heart',latin:'Cor',summary:'A four-chambered muscular pump that drives blood through the lungs and the rest of the body.',
   facts:[{label:'Function',value:'Pumps blood to the lungs (right side) and the body (left side)'},{label:'Location',value:'Middle mediastinum, about two-thirds left of the midline'},{label:'Size',value:'About a closed fist, roughly 12 × 8.5 × 6 cm'},{label:'Weight',value:'About 250–350 g'},{label:'Blood supply',value:'Right and left coronary arteries'},{label:'Tissue',value:'Cardiac muscle (myocardium)'}],
   note:'At rest the heart moves about 5 litres of blood a minute. The LAD (anterior interventricular branch) is the coronary artery most often blocked in myocardial infarction.',
-  view:{az:18,el:8},explode:.55,source:'Model: BodyParts3D, The Database Center for Life Science (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:18,el:8},explode:1,source:'Model: BodyParts3D, The Database Center for Life Science (CC BY 4.0), simplified and recoloured for study.',
   inside:{label:'Open the heart',offLabel:'Close the heart',mode:'clip',normal:[0,0,-1],constant:.02,view:{az:0,el:6}},
   groups:[
    {id:'cardiac-veins',label:'Cardiac veins and coronary sinus',match:/cardiac vein|interventricular vein|marginal vein|vein of left ventricle|coronary sinus/i,color:'#3c4c86',description:'Drain the heart muscle into the coronary sinus, which empties into the right atrium.'},
@@ -53,11 +58,12 @@ export const ORGANS:OrganDef[]=[
  {id:'brain',name:'Brain',latin:'Encephalon',summary:'The control centre of the nervous system: cerebrum, cerebellum and brainstem.',
   facts:[{label:'Function',value:'Sensation, movement, thought, memory, emotion and body regulation'},{label:'Location',value:'Cranial cavity'},{label:'Weight',value:'About 1.3–1.4 kg in adults'},{label:'Blood supply',value:'Internal carotid and vertebral arteries, joined by the circle of Willis'},{label:'Tissue',value:'Grey matter (neuron cell bodies) over white matter (myelinated axons)'}],
   note:'The brain is about 2% of body weight but uses about 20% of the body’s oxygen at rest. The middle cerebral artery is the vessel most often involved in stroke.',
-  view:{az:62,el:12},explode:.5,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:62,el:12},explode:1,shells:['white-matter'],source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   inside:{label:'Midline section',offLabel:'Whole brain',mode:'clip',normal:[1,0,0],constant:.02,view:{az:-90,el:6}},
   groups:[
    {id:'ventricles',label:'Ventricles',match:/ventricle|aqueduct|central canal/i,color:'#86b9d6',description:'CSF flows from the lateral ventricles to the third ventricle, the cerebral aqueduct and the fourth ventricle. A blockage causes hydrocephalus.',pin:/^body of lateral ventricle \(left\)$/i},
-   {id:'white-matter',label:'White matter and commissures',match:/white matter|corpus callosum|commissure|fornix|mammillothalamic|optic radiation/i,color:'#f0e4d6',description:'Myelinated tracts connecting brain regions. The corpus callosum links the two hemispheres.',pin:/^corpus callosum \(left\)$/i},
+   {id:'commissures',label:'Corpus callosum and commissures',match:/corpus callosum|commissure|fornix|mammillothalamic|optic radiation/i,color:'#f3e8db',description:'The corpus callosum links the two hemispheres; the fornix carries hippocampal output to the mammillary bodies; the optic radiation runs to the visual cortex.',pin:/^corpus callosum \(left\)$/i},
+   {id:'white-matter',label:'Cerebral white matter',match:/^white matter of/i,color:'#efe3d4',description:'Myelinated axons beneath the cortex: projection, association and commissural fibres that connect brain regions.'},
    {id:'diencephalon',label:'Thalamus and hypothalamus',match:/thalam|geniculate|pulvinar|habenul|pineal|zona incerta|hypothalamus|subthalamic|optic tract|optic chiasm|midline nuclear|ventral posterior/i,color:'#d3998a',description:'The thalamus relays sensory information to the cortex (every sense except smell). The hypothalamus controls the pituitary, temperature, hunger, thirst and circadian rhythm.',pin:/^thalamus \(left\)$/i},
    {id:'basal-ganglia',label:'Basal ganglia',match:/caudate|putamen|globus pallidus|accumbens|claustrum|basal forebrain|septal|bed nucleus/i,color:'#c98f80',description:'The caudate, putamen and globus pallidus help start and scale movement. Loss of their dopamine input from the substantia nigra causes Parkinson’s disease.',pin:/^head of caudate \(left\)$/i},
    {id:'limbic',label:'Hippocampus and amygdala',match:/hippocamp|amygdal|^(central nuclear group|lateral nucleus|basolateral nucleus|basomedial nucleus|anterior cortical nucleus|posterior cortical nucleus|medial nucleus) \(|olfactory|piriform|gyrus ambiens|perirhinal/i,color:'#d39c8c',description:'The hippocampus forms new memories and is affected early in Alzheimer’s disease; the amygdala processes fear and emotion.',pin:/^body of hippocampus \(left\)$/i},
@@ -72,7 +78,7 @@ export const ORGANS:OrganDef[]=[
  {id:'lungs',name:'Lungs',latin:'Pulmones',summary:'Paired organs of gas exchange, divided into lobes and bronchopulmonary segments.',
   facts:[{label:'Function',value:'Gas exchange: oxygen into the blood, carbon dioxide out'},{label:'Location',value:'Thoracic cavity, each lung in its own pleural cavity'},{label:'Lobes',value:'Right 3 lobes (10 segments) · Left 2 lobes (8–10 segments)'},{label:'Alveolar surface',value:'About 70 m² across roughly 300–500 million alveoli'},{label:'Blood supply',value:'Pulmonary arteries for gas exchange; bronchial arteries nourish the lung tissue'},{label:'Tissue',value:'Branching bronchial tree ending in alveoli lined by type I and II pneumocytes'}],
   note:'Inhaled foreign bodies usually enter the right main bronchus because it is wider, shorter and more vertical than the left.',
-  view:{az:0,el:4},explode:.45,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:0,el:4},explode:1,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   inside:{label:'Show the airways',offLabel:'Show the lobes',mode:'hide',hide:['right-upper','right-middle','right-lower','left-upper','lingula','left-lower']},
   groups:[
    {id:'airways',label:'Trachea and bronchial tree',match:/bronchus$|bronchi$|trachea|cartilage/i,color:'#ead8c4',description:'Trachea → main bronchi → lobar bronchi → segmental bronchi. C-shaped cartilage keeps the larger airways open.',pin:/^trachea and main bronchi$/i},
@@ -87,7 +93,7 @@ export const ORGANS:OrganDef[]=[
  {id:'liver',name:'Liver',latin:'Hepar',summary:'The largest internal organ: metabolism, bile, plasma proteins and detoxification.',
   facts:[{label:'Function',value:'Metabolism, bile production, albumin and clotting factor synthesis, detoxification, glycogen storage'},{label:'Location',value:'Right upper quadrant, under the diaphragm'},{label:'Weight',value:'About 1.4–1.6 kg'},{label:'Blood supply',value:'Portal vein (about 75%) and hepatic artery proper (about 25%)'},{label:'Tissue',value:'Hepatocytes arranged in lobules around central veins'}],
   note:'The 8 Couinaud segments each have their own portal triad and venous drainage, so a surgeon can remove one segment without the others.',
-  view:{az:0,el:14},explode:.5,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:0,el:14},explode:1,shells:['capsule'],explodeReveal:['segment-1','segment-2','segment-3','segment-4','segment-5','segment-6','segment-7','segment-8'],source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   inside:{label:'Show the 8 segments',offLabel:'Show the surface',mode:'hide',hide:['capsule'],show:['segment-1','segment-2','segment-3','segment-4','segment-5','segment-6','segment-7','segment-8']},
   groups:[
    {id:'capsule',label:'Liver surface (Glisson’s capsule)',match:/^liver capsule$/i,color:'#7b2620',description:'A thin fibrous capsule covering the liver. Stretching of the capsule is why liver swelling causes right upper quadrant pain.'},
@@ -106,7 +112,7 @@ export const ORGANS:OrganDef[]=[
  {id:'pancreas',name:'Pancreas',latin:'Pancreas',summary:'A retroperitoneal gland with exocrine (digestive) and endocrine (hormonal) roles.',
   facts:[{label:'Function',value:'Exocrine: digestive enzymes and bicarbonate · Endocrine: insulin, glucagon, somatostatin'},{label:'Location',value:'Retroperitoneal, behind the stomach, across L1–L2'},{label:'Length',value:'About 12–15 cm'},{label:'Weight',value:'About 70–100 g'},{label:'Blood supply',value:'Pancreaticoduodenal arteries (head) and splenic artery branches (body and tail)'},{label:'Tissue',value:'Exocrine acini (about 98%) and islets of Langerhans (about 1–2%)'}],
   note:'Cancer of the pancreatic head can block the common bile duct, giving painless jaundice with a palpable gallbladder (Courvoisier’s sign).',
-  view:{az:0,el:24},explode:.6,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:0,el:24},explode:1,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   groups:[
    {id:'head',label:'Head',match:/^head of pancreas$/i,color:'#e2bf8e',description:'Sits in the C-loop of the duodenum, with the common bile duct running behind or through it.',pin:/^head of pancreas$/i},
    {id:'uncinate',label:'Uncinate process',match:/uncinate/i,color:'#d8b282',description:'Hooks behind the superior mesenteric vessels.',pin:/uncinate/i},
@@ -117,7 +123,7 @@ export const ORGANS:OrganDef[]=[
  {id:'small-intestine',name:'Small intestine',latin:'Intestinum tenue',summary:'Duodenum, jejunum and ileum: where most digestion and absorption happens.',
   facts:[{label:'Function',value:'Digestion and absorption of nutrients'},{label:'Location',value:'Central and lower abdomen; the duodenum curves around the pancreatic head'},{label:'Length',value:'About 6 m: duodenum about 25 cm, then jejunum (two-fifths) and ileum (three-fifths)'},{label:'Blood supply',value:'Superior mesenteric artery, plus coeliac branches to the upper duodenum'},{label:'Tissue',value:'Mucosa folded into villi and microvilli; Peyer’s patches in the ileum'}],
   note:'Iron is absorbed mainly in the duodenum; vitamin B12 and bile salts in the terminal ileum.',
-  view:{az:0,el:6},explode:.45,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:0,el:6},explode:.9,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   groups:[
    {id:'duodenum',label:'Duodenum',match:/^duodenum /i,color:'#d99a80',description:'C-shaped first part in four sections: superior (D1, commonest site of peptic ulcer), descending (D2, receives bile and pancreatic juice), horizontal (D3, crosses between the aorta and SMA) and ascending (D4).',pin:/^duodenum descending$/i},
    {id:'ampulla',label:'Ampulla and duodenal papillae',match:/ampulla|papilla/i,color:'#c3735f',description:'The common bile duct and main pancreatic duct meet at the hepatopancreatic ampulla, controlled by the sphincter of Oddi. The minor papilla drains the accessory duct (of Santorini).',pin:/^duodenal ampulla$/i},
@@ -128,7 +134,7 @@ export const ORGANS:OrganDef[]=[
  {id:'large-intestine',name:'Large intestine',latin:'Intestinum crassum',summary:'Caecum, appendix, colon and rectum: water absorption and stool formation.',
   facts:[{label:'Function',value:'Absorbs water and electrolytes; forms and stores faeces'},{label:'Location',value:'Frames the abdomen from the right iliac fossa to the pelvis'},{label:'Length',value:'About 1.5 m'},{label:'Blood supply',value:'Superior mesenteric artery (to about two-thirds of the transverse colon), then inferior mesenteric artery'},{label:'Tissue',value:'Crypts rich in goblet cells, no villi; taeniae coli and haustra'}],
   note:'The splenic flexure is a watershed between the SMA and IMA territories, so it is especially vulnerable to ischaemic colitis.',
-  view:{az:0,el:6},explode:.4,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:0,el:6},explode:.85,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   groups:[
    {id:'caecum',label:'Caecum',match:/caecum/i,color:'#d99682',description:'A blind pouch in the right iliac fossa where the ileum enters the colon.',pin:/caecum/i},
    {id:'appendix',label:'Vermiform appendix',match:/appendix/i,color:'#cf8673',description:'Its base lies at McBurney’s point, one-third of the way from the ASIS to the umbilicus. Appendicitis pain classically starts around the umbilicus and moves to the right iliac fossa.',pin:/appendix/i},
@@ -144,7 +150,7 @@ export const ORGANS:OrganDef[]=[
  {id:'kidney',name:'Kidney',latin:'Ren',summary:'The left kidney: cortex, medulla and the structures of its hilum.',
   facts:[{label:'Function',value:'Filters blood; balances fluid, electrolytes, acid–base and blood pressure; makes erythropoietin and activates vitamin D'},{label:'Location',value:'Retroperitoneal at T12–L3; the right kidney sits slightly lower'},{label:'Size',value:'About 11 × 6 × 3 cm'},{label:'Weight',value:'About 120–170 g'},{label:'Blood supply',value:'Renal artery from the abdominal aorta; the kidneys receive about 20% of cardiac output'},{label:'Tissue',value:'About 1 million nephrons per kidney in the cortex and medulla'}],
   note:'At the hilum the order from front to back is vein, artery, pelvis. Together the kidneys filter about 180 litres of plasma a day.',
-  view:{az:28,el:6},explode:.35,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:28,el:6},explode:1,shells:['capsule','cortex','columns'],source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   inside:{label:'Show the medulla',offLabel:'Show the surface',mode:'hide',hide:['capsule','cortex','columns']},
   groups:[
    {id:'capsule',label:'Renal capsule',match:/kidney capsule/i,color:'#8f3c33',description:'A tough fibrous layer that wraps and protects the kidney.',pin:/kidney capsule/i},
@@ -157,7 +163,7 @@ export const ORGANS:OrganDef[]=[
  {id:'eye',name:'Eye',latin:'Bulbus oculi',summary:'The left eyeball: its three coats, the lens and the optical media.',
   facts:[{label:'Function',value:'Focuses light on the retina and turns it into nerve signals'},{label:'Location',value:'Orbit, protected by the eyelids'},{label:'Size',value:'About 24 mm in diameter'},{label:'Weight',value:'About 7.5 g'},{label:'Blood supply',value:'Ophthalmic artery (from the internal carotid) via the central retinal and ciliary arteries'},{label:'Tissue',value:'Fibrous coat (sclera, cornea), vascular coat (choroid, ciliary body, iris), neural coat (retina)'}],
   note:'The optic disc has no photoreceptors, so it forms the blind spot. Blocked drainage of aqueous humor raises eye pressure and causes glaucoma.',
-  view:{az:38,el:8},explode:.35,source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
+  view:{az:38,el:8},explode:1,shells:['sclera','choroid','conjunctiva','vitreous','aqueous'],source:'Model: Human Reference Atlas 3D library, HuBMAP Consortium (CC BY 4.0), simplified and recoloured for study.',
   inside:{label:'Cut the eye open',offLabel:'Close the eye',mode:'clip',normal:[-1,0,0],constant:.02,view:{az:90,el:4}},
   groups:[
    {id:'cornea',label:'Cornea',match:/^cornea$/i,color:'#cfe4ef',opacity:.22,description:'The clear, avascular front window that provides about two-thirds of the eye’s focusing power.',pin:/^cornea$/i},
@@ -177,7 +183,7 @@ export const ORGANS:OrganDef[]=[
  {id:'skin',name:'Skin',latin:'Cutis',summary:'A block of skin in cross-section: epidermis, dermis and subcutaneous fat with hair, glands, vessels and nerve endings.',
   facts:[{label:'Function',value:'Barrier against microbes, water loss and UV; temperature control; sensation; vitamin D synthesis'},{label:'Location',value:'Covers the whole body surface'},{label:'Area',value:'About 1.5–2 m² in adults'},{label:'Thickness',value:'From about 0.5 mm on the eyelids to several millimetres on the back, palms and soles'},{label:'Blood supply',value:'Deep and superficial cutaneous plexuses; the epidermis itself has no vessels'},{label:'Tissue',value:'Epidermis (keratinised stratified squamous epithelium) on the dermis (connective tissue), over the hypodermis (fat)'}],
   note:'Burn depth follows the layers: superficial burns stay in the epidermis, partial-thickness burns reach the dermis, and full-thickness burns destroy both and can be painless because the nerve endings are gone.',
-  view:{az:30,el:24},explode:.4,source:'Model: MedSchoolZone schematic of skin histology (not to scale).',
+  view:{az:30,el:24},explode:.9,source:'Model: MedSchoolZone schematic of skin histology (not to scale).',
   inside:{label:'Hide the tissue layers',offLabel:'Show the tissue layers',mode:'hide',hide:['epidermis','dermis','hypodermis']},
   groups:[
    {id:'epidermis',label:'Epidermis',match:/^epidermis$/i,color:'#e8c2a4',description:'Keratinised stratified squamous epithelium with no blood vessels. From deep to surface: stratum basale, spinosum, granulosum, lucidum (thick skin only) and corneum.',pin:/^epidermis$/i},

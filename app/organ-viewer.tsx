@@ -34,7 +34,7 @@ export default function OrganViewer({organ,onClose,thumbnail=false,startInside=f
  const [progress,setProgress]=useState(0),[error,setError]=useState(''),[ready,setReady]=useState(false);
  const [selected,setSelected]=useState<Selection|null>(null),[explode,setExplode]=useState(0),[inside,setInside]=useState(false),[labels,setLabels]=useState(true),[rotate,setRotate]=useState(false),[isolate,setIsolate]=useState(false),[cardOpen,setCardOpen]=useState(false);
  const groups=useMemo(()=>organ.groups.filter(g=>!g.hidden),[organ]);
- const visibleGroups=useMemo(()=>groups.filter(g=>{if(!organ.inside||organ.inside.mode!=='hide')return true;if(inside)return !organ.inside.hide?.includes(g.id);return !organ.inside.show?.includes(g.id);}),[groups,organ,inside]);
+ const visibleGroups=useMemo(()=>groups.filter(g=>{if(explode>=.5&&organ.shells?.includes(g.id))return false;if(explode>.02&&organ.explodeReveal?.includes(g.id))return true;if(!organ.inside||organ.inside.mode!=='hide')return true;if(inside)return !organ.inside.hide?.includes(g.id);return !organ.inside.show?.includes(g.id);}),[groups,organ,inside,explode]);
  const selectedGroup=groups.find(g=>g.id===selected?.groupId);
 
  useEffect(()=>{
@@ -56,9 +56,13 @@ export default function OrganViewer({organ,onClose,thumbnail=false,startInside=f
 
   // ---------- state mirrored from React ----------
   let explodeTarget=0,explodeNow=0,insideOn=false,labelsOn=true,isolateOn=false,selectedGroupId:string|null=null,lastMove=0;
-  type Part={mesh:T.Mesh;name:string;group:OrganGroup;center:T.Vector3;radius:number};
+  type Part={mesh:T.Mesh;name:string;group:OrganGroup;center:T.Vector3;radius:number;box:T.Box3;dir:T.Vector3;reach:number};
   const parts:Part[]=[],materials=new Map<string,T.MeshPhysicalMaterial>(),groupParts=new Map<string,Part[]>(),groupById=new Map<string,OrganGroup>(organ.groups.map(g=>[g.id,g]));
   const baseOpacity=(g:OrganGroup)=>g.opacity??1;
+  const shells=new Set(organ.shells??[]),reveal=new Set(organ.explodeReveal??[]);
+  /** Shells fade out over the first half of the explode slider. */
+  const shellFade=()=>1-T.MathUtils.smoothstep(explodeNow,.06,.5);
+  const opacityFor=(g:OrganGroup)=>{let o=baseOpacity(g);if(shells.has(g.id))o*=shellFade();if(isolateOn&&selectedGroupId!==null&&g.id!==selectedGroupId)o=Math.min(o,.07);return o;};
 
   const materialFor=(g:OrganGroup)=>{
    let m=materials.get(g.id);if(m)return m;
@@ -91,15 +95,15 @@ export default function OrganViewer({organ,onClose,thumbnail=false,startInside=f
   const placeAnchors=()=>{const view=dirFromView(insideOn&&organ.inside?.view?organ.inside.view:organ.view),plane=insideOn&&organ.inside?.mode==='clip'?clip:null;for(const p of pins)p.local.copy(anchorFor(p.part,view,plane));};
 
   // ---------- visibility and materials ----------
-  const groupShown=(g:OrganGroup)=>{if(g.hidden)return false;const ins=organ.inside;if(!ins||ins.mode!=='hide')return true;return insideOn?!ins.hide?.includes(g.id):!ins.show?.includes(g.id);};
+  const groupShown=(g:OrganGroup)=>{if(g.hidden)return false;if(reveal.has(g.id)&&explodeNow>.02)return true;const ins=organ.inside;if(!ins||ins.mode!=='hide')return true;return insideOn?!ins.hide?.includes(g.id):!ins.show?.includes(g.id);};
   const applyState=()=>{
    for(const [id,m] of materials){
-    const g=groupById.get(id)!,ghost=isolateOn&&selectedGroupId!==null&&id!==selectedGroupId,opacity=ghost?Math.min(.07,baseOpacity(g)):baseOpacity(g);
+    const g=groupById.get(id)!,opacity=opacityFor(g);
     const transparent=opacity<1;if(m.transparent!==transparent){m.transparent=transparent;m.needsUpdate=true;}
     m.opacity=opacity;m.depthWrite=opacity>=.5;m.emissiveIntensity=id===selectedGroupId?.28:0;
     const planes=insideOn&&organ.inside?.mode==='clip'?[clip]:[];if((m.clippingPlanes?.length??0)!==planes.length){m.clippingPlanes=planes;m.needsUpdate=true;}
    }
-   for(const p of parts)p.mesh.visible=groupShown(p.group);
+   for(const p of parts)p.mesh.visible=groupShown(p.group)&&opacityFor(p.group)>.01;
    for(const pin of pins){pin.el.classList.toggle('selected',pin.group.id===selectedGroupId);}
    occlusionDue=0;pinCheckPending=true;dirty=true;
   };
@@ -136,9 +140,12 @@ export default function OrganViewer({organ,onClose,thumbnail=false,startInside=f
     o.geometry.computeBoundingBox();o.geometry.computeBoundingSphere();
     const center=o.geometry.boundingBox!.getCenter(new T.Vector3()),radius=o.geometry.boundingSphere!.radius;
     o.material=materialFor(group);o.renderOrder=baseOpacity(group)<1?2:0;
-    const part={mesh:o,name,group,center,radius};parts.push(part);groupParts.set(group.id,[...(groupParts.get(group.id)??[]),part]);
+    const part={mesh:o,name,group,center,radius,box:o.geometry.boundingBox!.clone(),dir:new T.Vector3(),reach:0};parts.push(part);groupParts.set(group.id,[...(groupParts.get(group.id)??[]),part]);
    });
    for(const p of parts)root.add(p.mesh);
+   // Explode directions: straight out from the organ centre; pieces sitting at the centre get evenly spread directions.
+   parts.forEach((p,i)=>{const len=p.center.length();if(len>.03)p.dir.copy(p.center).divideScalar(len);else{const y=1-2*(i+.5)/parts.length,r=Math.sqrt(1-y*y),a=i*2.39996;p.dir.set(Math.cos(a)*r,y,Math.sin(a)*r);}
+    p.reach=len*1.15+.24;});
    const box=new T.Box3();for(const p of parts)if(!p.group.hidden)box.expandByObject(p.mesh);
    fitRadius=box.getBoundingSphere(new T.Sphere()).radius*.84;
    // Pins (not in thumbnails).
@@ -204,9 +211,16 @@ export default function OrganViewer({organ,onClose,thumbnail=false,startInside=f
   const animate=()=>{
    if(disposed)return;frame=requestAnimationFrame(animate);const dt=Math.min(clock.getDelta(),.05),now=performance.now();
    if(Math.abs(explodeNow-explodeTarget)>.0005){explodeNow=T.MathUtils.damp(explodeNow,explodeTarget,7,dt);if(Math.abs(explodeNow-explodeTarget)<.0005)explodeNow=explodeTarget;
-    for(const p of parts){const d=p.center.clone(),len=d.length();p.mesh.position.copy(d.multiplyScalar(explodeNow*organ.explode*1.4)).addScaledVector(len>1e-4?p.center.clone().normalize():new T.Vector3(),explodeNow*organ.explode*.12);}
-    // Keep the separated pieces in frame: widen the shot as the organ explodes.
-    const dir=camera.position.clone().sub(controls.target).normalize();goal.target.set(0,0,0);goal.position.copy(dir).multiplyScalar(distanceFor(fitRadius*(1+explodeNow*organ.explode*1.25)));goal.active=true;
+    // Full separation: each piece travels out along its direction by more than its distance from the centre (plus a fixed gap),
+    // so neighbours spread apart and central pieces leave the middle too.
+    const k=explodeNow*organ.explode;
+    for(const p of parts)p.mesh.position.copy(p.dir).multiplyScalar(p.reach*k);
+    applyState();
+    // Keep every piece in frame: aim at the middle of the exploded set and back off to fit its bounds.
+    const bounds=new T.Box3();for(const p of parts)if(p.mesh.visible)bounds.union(p.box.clone().translate(p.mesh.position));
+    const sphere=bounds.isEmpty()?new T.Sphere(new T.Vector3(),fitRadius):bounds.getBoundingSphere(new T.Sphere());
+    const blend=T.MathUtils.smoothstep(explodeNow,0,.25),aim=sphere.center.clone().multiplyScalar(blend),radius=T.MathUtils.lerp(fitRadius,Math.max(fitRadius,sphere.radius*1.02),blend);
+    const dir=camera.position.clone().sub(controls.target).normalize();goal.target.copy(aim);goal.position.copy(aim).addScaledVector(dir,distanceFor(radius));goal.active=true;
     occlusionDue=0;dirty=true;}
    if(goal.active){controls.target.lerp(goal.target,1-Math.exp(-dt*7));camera.position.lerp(goal.position,1-Math.exp(-dt*7));if(camera.position.distanceTo(goal.position)<.002&&controls.target.distanceTo(goal.target)<.002)goal.active=false;dirty=true;lastMove=now;}
    controls.update();if(controls.autoRotate)dirty=true;
