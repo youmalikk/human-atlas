@@ -171,11 +171,15 @@ button.organ-pin:not([data-slot]):hover{background:none}
 .organ-tile{flex:0 0 74px;display:flex!important;flex-direction:column;align-items:center;gap:5px;padding:7px 4px 8px!important;border-radius:11px;background:linear-gradient(165deg,#ffffff,#f1f3f6)!important;box-shadow:inset 0 0 0 1px #1825360f;font-size:11px;color:#3c4956;line-height:1.2;text-align:center}
 .organ-tile:hover{box-shadow:inset 0 0 0 1px #1a6bff55}
 .organ-tile img{width:54px;height:54px;object-fit:contain;display:block}
-.organs-panel{position:absolute;z-index:30;left:12px;right:12px;bottom:calc(140px + env(safe-area-inset-bottom));max-height:calc(100dvh - 270px);border-radius:16px;padding:10px 14px 14px;background:#fffffff5;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.organs-panel{position:absolute;z-index:40;left:12px;right:12px;top:max(108px,calc(env(safe-area-inset-top) + 90px));max-height:calc(100dvh - 270px - env(safe-area-inset-top) - env(safe-area-inset-bottom));border-radius:16px;padding:10px 14px 14px;background:#fffffff5;display:flex;flex-direction:column;gap:10px;overflow:hidden}
 .organs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;overflow-y:auto;overscroll-behavior:contain}
 .organs-grid .organ-tile{flex:none;width:auto;min-height:96px;font-size:12px}.organs-grid .organ-tile img{width:58px;height:58px}
 .organ-open-link{display:flex!important;align-items:center;justify-content:center;gap:8px;min-height:40px;border:1px solid #1a6bff40!important;color:var(--msz-blue-dark)!important;border-radius:9px;font-size:12px;font-weight:500;margin-bottom:2px}
-.dock-organs{flex-direction:column;align-items:center;gap:8px;font-size:10px;padding:9px 8px 9px 0;border-right:1px solid #18253618;height:auto;border-radius:0;font-weight:400}
+/* Phones: the Organs button sits in the top row (the About button moves out there, since "Source & credits" opens the same sheet) and the organ list drops down from the top. */
+.top-actions .top-organs{display:none}
+@media(max-width:767px),(max-height:600px) and (orientation:landscape){.top-actions .top-organs{display:flex}}
+@media(max-width:767px){.top-actions .top-info{display:none}}
+@media(max-height:600px) and (orientation:landscape){.organs-panel{top:72px;left:auto;right:max(12px,env(safe-area-inset-right));width:350px;max-height:calc(100dvh - 84px)}}
 @media(max-width:1100px) and (min-width:768px){.organ-card{width:300px}.organ-dock{left:calc((100% - 324px)/2);width:min(560px,calc(100% - 360px))}.organ-tool span{font-size:9px}}
 @media(max-width:767px){
  .organ-top{top:max(14px,env(safe-area-inset-top));left:12px;right:12px;gap:12px}
@@ -191,7 +195,6 @@ button.organ-pin:not([data-slot]):hover{background:none}
  .organ-tools{justify-content:space-between}.organ-tool{flex:1;min-width:0;min-height:48px}
  .organ-pin-label{font-size:11px;padding:5px 8px}
  .organ-intro h3{font-size:20px}
- .dock-organs{min-width:44px;min-height:48px}
 }
 @media(max-height:600px) and (orientation:landscape){
  .organ-top{top:12px;left:16px}.organ-heading h2{font-size:22px}
