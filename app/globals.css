@@ -207,3 +207,61 @@ button.organ-pin:not([data-slot]):hover{background:none}
 html:has(.organ-thumb),html:has(.organ-thumb) body,html:has(.organ-thumb) #root{background:transparent!important}
 @media(max-width:767px){.organ-card .organ-title-row{display:none}}
 .organ-pin.selected{z-index:3}.organ-pin:hover,.organ-pin:focus-visible{z-index:4}
+/* ---- Dark stage: black background so the structures stand out, dark panels to match ---- */
+:root{color:#e8edf2;background:#07090c;color-scheme:dark;--background:#07090c;--foreground:#e8edf2;--card:#12161c;--card-foreground:#e8edf2;--popover:#141920;--popover-foreground:#e8edf2;--secondary:#1b2129;--secondary-foreground:#e8edf2;--muted:#1b2129;--muted-foreground:#8f9aa6;--accent:#1b2129;--accent-foreground:#e8edf2;--border:#ffffff17;--input:#ffffff24}
+html,body{background:#07090c}
+.vignette{background:radial-gradient(ellipse at 51% 43%,transparent 42%,#00000073 100%)}
+.glass{background:#12161ce8;border-color:#ffffff14;box-shadow:0 2px 6px #0000004d,0 16px 48px #00000059}
+button:not([data-slot]):hover{color:#fff;background:#ffffff0d}
+.identity h1,h1{color:#f2f5f8}h1 em{color:#9aa6b2}.eyebrow{color:#8f9aa6}.identity-meta{color:#7f8b97}.identity-meta span{color:#56616c}
+.top-actions button{background:#141920d9;border-color:#ffffff17;color:#c9d1d9}.top-actions button:hover{background:#1b2129;color:#fff}.top-actions kbd{border-color:#ffffff26}
+.top-actions button.active{color:#fff;background:#1a6bff47}
+.top-actions .account-link{color:#c9d1d9}.top-actions .account-link:hover{color:#fff;background:#ffffff0d}
+.anatomy-choice [data-slot=select-trigger]{background:#141920d9;color:#c9d1d9;border-color:#ffffff17}
+.panel-heading{color:#e8edf2}.panel-heading .small-number,.small-number{color:#8f9aa6}.panel-heading .small-number{background:#1f262f}
+.layer-presets{background:#1a2027;border-bottom-color:#ffffff12}.layer-presets button{color:#9aa6b2}.layer-presets button[aria-pressed=true]{background:#2c343e;color:#fff;box-shadow:none}
+.system-name{color:#6f7a86}.enabled .system-name{color:#d5dce3}.system-count{color:#6f7a86}.system-dot{box-shadow:0 0 0 2px #ffffff0a}
+.panel-foot{border-top-color:#ffffff12;color:#8f9aa6}.panel-foot button{color:#8f9aa6}
+.view-controls button{color:#9aa6b2}.view-controls .active{color:#fff;background:#1a6bff47}.view-controls i{background:#ffffff1a}
+.explode-label{color:#c9d1d9}.explode-label output{background:#1b2129;border-color:#ffffff12;color:#f2f5f8}.explode-label output span{color:#8f9aa6}
+.explode-control [data-slot=slider-track]{background:#2a313a}
+.explode-control [data-slot=slider-thumb]{background:#1A6BFF;border-color:#f2f5f8;box-shadow:0 0 0 1px #00000066,0 2px 6px #00000080}
+.slider-endpoints{color:#7f8b97}
+.dock-reset,.dock-layers{color:#9aa6b2}.dock-reset{border-left-color:#ffffff17}.dock-layers{border-right-color:#ffffff17}
+.scene-caption{color:#6f7a86}.caption-line{background:#ffffff26}
+.studio-footer,.studio-footer button{color:#7f8b97}.studio-footer b{color:#4f5a65}
+.loading strong{color:#e8edf2}.loading span{color:#8f9aa6}.loading-track{background:#ffffff1a}
+.search-panel [data-slot=input-group]{background:#1b2129}.search-note{color:#8f9aa6}
+.anatomy-search-results{background:#141920!important;border-color:#ffffff17!important;color:#e8edf2!important}
+.part-hover{background:#1b2129f5;color:#f2f5f8;border:1px solid #ffffff1f;box-shadow:0 6px 18px #00000080}
+.detail-sheet{background:#12161cf2!important;color:#e8edf2;border-color:#ffffff14!important}
+.structure-title{color:#f2f5f8}.structure-description{color:#a9b3bd!important}.context-note{color:#7f8b97}
+.structure-meta{border-color:#ffffff14;color:#7f8b97}.structure-meta strong{color:#d5dce3}
+.detail-actions{border-top-color:#ffffff14}.secondary-action{color:#9aa6b2}
+.member-list h3{color:#9aa6b2}.member-list button{border-bottom-color:#ffffff12;color:#c9d1d9}
+.source-link,.about-copy a{color:#6ea2ff}
+.about-sheet{background:#12161c!important;color:#e8edf2}.about-copy{color:#a9b3bd}.about-copy strong,.about-copy h3{color:#e8edf2}
+.organ-strip{border-bottom-color:#ffffff12}.organ-strip-head{color:#e8edf2}.organ-strip-head span:last-child{background:#1f262f;color:#9aa6b2}
+.organ-tile{background:linear-gradient(165deg,#1b2129,#141920)!important;box-shadow:inset 0 0 0 1px #ffffff12;color:#c9d1d9}.organ-tile:hover{box-shadow:inset 0 0 0 1px #1a6bff88}
+.organs-panel{background:#12161cf5}
+.organ-open-link{border-color:#1a6bff66!important;color:#6ea2ff!important}
+/* Organ views */
+.organ-view{background:radial-gradient(ellipse at 44% 44%,#151a21 0%,#0a0c10 55%,#050608 100%)}
+.organ-view.organ-thumb{background:transparent}
+.organ-back{background:#141920e0!important;border-color:#ffffff17!important;color:#c9d1d9}.organ-back:hover{background:#1b2129!important}
+.organ-heading h2{color:#f2f5f8}
+.organ-title-thumb{background:linear-gradient(160deg,#1b2129,#12161c);box-shadow:inset 0 0 0 1px #ffffff12}
+.organ-intro h3,.organ-selected h3{color:#f2f5f8}.organ-latin{color:#8f9aa6}.organ-summary{color:#a9b3bd}
+.organ-facts{border-top-color:#ffffff12}.organ-facts>div{border-bottom-color:#ffffff12}.organ-facts dt{color:#7f8b97}.organ-facts dd{color:#d5dce3}
+.organ-note{background:#1a6bff14;border-color:#1a6bff40;color:#c3d6f5}.organ-note strong{color:#7fb0ff}
+.organ-structures h4{color:#e8edf2}.organ-structures h4 span{background:#1f262f;color:#9aa6b2}
+.organ-structures li button{color:#c9d1d9}.organ-structures li button.active{background:#1a6bff26;color:#9cc2ff}
+.organ-selected{background:#161b22;border-color:#1a6bff55;box-shadow:none}.organ-selected-group{color:#8f9aa6}.organ-selected-desc{color:#a9b3bd}
+.organ-chip{background:#1b2129!important;border-color:#ffffff1f!important;color:#c9d1d9}.organ-chip:hover{background:#232a33!important}
+.organ-chip.active{background:var(--msz-blue-dark)!important;color:#fff;border-color:var(--msz-blue-dark)!important}
+.organ-icon-btn{color:#9aa6b2}.organ-source{color:#6f7a86}
+.organ-tool{color:#9aa6b2}.organ-tool.active{color:#9cc2ff;background:#1a6bff26!important}
+.organ-card-handle{color:#c9d1d9}.organ-card-handle-text strong{color:#f2f5f8}.organ-card-handle-text span{color:#8f9aa6}
+.organ-pin-dot{background:#0d1014e6;box-shadow:0 0 0 1px #ffffff40,0 3px 8px #00000099}.organ-pin-dot::after{box-shadow:0 0 0 2px #0d1014}
+.organ-pin-label{background:#1b2129f2;border:1px solid #ffffff24;box-shadow:0 4px 14px #00000080}
+.organ-pin.selected .organ-pin-dot{background:#1A6BFF;box-shadow:0 0 0 3px #1a6bff55,0 3px 8px #00000099}
