@@ -265,3 +265,6 @@ button:not([data-slot]):hover{color:#fff;background:#ffffff0d}
 .organ-pin-dot{background:#0d1014e6;box-shadow:0 0 0 1px #ffffff40,0 3px 8px #00000099}.organ-pin-dot::after{box-shadow:0 0 0 2px #0d1014}
 .organ-pin-label{background:#1b2129f2;border:1px solid #ffffff24;box-shadow:0 4px 14px #00000080}
 .organ-pin.selected .organ-pin-dot{background:#1A6BFF;box-shadow:0 0 0 3px #1a6bff55,0 3px 8px #00000099}
+/* The logo image has its own light background, so on the dark stage it sits on a rounded light tile. */
+.identity-logo{border-radius:12px;filter:none}
+@media(max-width:767px),(max-height:600px) and (orientation:landscape){.identity-logo{border-radius:8px}}
