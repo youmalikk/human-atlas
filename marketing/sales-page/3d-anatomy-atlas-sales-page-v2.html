@@ -123,6 +123,11 @@
   .cf-sample.cf-sample-auto img { height: auto !important; max-height: none !important; object-fit: initial; display: block; }
   .cf-samples-grid { align-items: start; }
   .cf-sample-label { text-align: center; font-size: 14px; font-weight: bold; color: #333; margin-top: 8px; }
+  /* === Organ views grid (images served from the atlas site) === */
+  .cf-organs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 20px 0 8px; padding: 14px; background: #F2F6FD; border: 1px solid #d6e2f7; border-radius: 8px; }
+  .cf-organ { background: #fff; border: 1px solid #e3eaf6; border-radius: 8px; padding: 6px 4px 8px; text-align: center; }
+  .cf-organ img { width: 100%; max-width: 120px; height: auto !important; max-height: none !important; margin: 0 auto; display: block; }
+  .cf-organ span { display: block; font-size: 13px; font-weight: bold; color: #060D2E; margin-top: 4px; line-height: 1.2; }
   /* === Wide screenshot (16:10) === */
   .cf-wide { background: #fff; border: 1px solid #ccc; overflow: hidden; aspect-ratio: 16 / 10; margin: 20px 0; }
   .cf-wide img { width: 100%; height: 100%; object-fit: cover; }
@@ -166,6 +171,9 @@
     .cf-exams { gap: 6px; }
     .cf-exam { font-size: 12px; padding: 6px 9px; gap: 5px; }
     .cf-legend-grid { grid-template-columns: repeat(2, 1fr); }
+    .cf-organs { gap: 5px; padding: 8px; }
+    .cf-organ { padding: 4px 2px 6px; }
+    .cf-organ span { font-size: 10.5px; }
   }
 </style>
 
@@ -255,6 +263,7 @@
       <li><strong>Search 3,432 named structures</strong> and jump straight to any of them, from "left coronary artery" to "lesser trochanter"</li>
       <li><strong>Isolate any structure</strong> to see it on its own, with a short plain-English explanation of what it is and what it does</li>
       <li><strong>Explode view:</strong> spread every visible piece apart to see what sits behind what</li>
+      <li><strong>10 organs in close-up 3D:</strong> heart, brain, lungs, liver, pancreas, small and large intestine, kidney, eye and skin, each one you can cut open or pull apart. <a href="#organs">See them ↓</a></li>
       <li><strong>Four camera presets</strong> (three-quarter, front, side, back) plus free rotation and zoom</li>
       <li><strong>Skeleton and Organs presets</strong> for one-tap switching between views</li>
       <li><strong>Runs in your browser</strong> on phone, tablet and laptop. Nothing to download, nothing to update</li>
@@ -297,6 +306,32 @@
         <div class="cf-sample-label">💥 Explode View</div>
       </div>
     </div>
+
+    <div class="cf-divider">★ ★ ★</div>
+
+    <!-- ========== ORGAN VIEWS ========== -->
+    <section id="organs">
+      <h2 class="cf-h2">10 Organs, <span class="hl-yellow">Up Close</span></h2>
+      <p style="text-align:center;">Open any of these organs on its own, in full detail. Every part is colour-coded and labelled. Tap a part for its name and what it does, cut the organ open, or pull it apart piece by piece.</p>
+      <div class="cf-organs">
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/heart.webp" alt="3D heart" loading="lazy"><span>Heart</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/brain.webp" alt="3D brain" loading="lazy"><span>Brain</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/lungs.webp" alt="3D lungs" loading="lazy"><span>Lungs</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/liver.webp" alt="3D liver" loading="lazy"><span>Liver</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/pancreas.webp" alt="3D pancreas" loading="lazy"><span>Pancreas</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/small-intestine.webp" alt="3D small intestine" loading="lazy"><span>Small intestine</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/large-intestine.webp" alt="3D large intestine" loading="lazy"><span>Large intestine</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/kidney.webp" alt="3D kidney" loading="lazy"><span>Kidney</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/eye.webp" alt="3D eye" loading="lazy"><span>Eye</span></div>
+        <div class="cf-organ"><img src="https://atlas.medschoolzone.com/organs/promo/skin.webp" alt="3D skin cross-section" loading="lazy"><span>Skin</span></div>
+      </div>
+      <ul class="cf-list">
+        <li><strong>Look inside:</strong> open the heart's chambers, cut the brain down the midline, slice through the eye, and reveal the 8 liver segments, the lung airways and the kidney medulla</li>
+        <li><strong>Full explode:</strong> every part separates so you see exactly how the organ is built, then slides back together</li>
+        <li><strong>95 colour-coded parts</strong>, each with its name and a short explanation when you tap it</li>
+        <li><strong>A high-yield exam note</strong> on every organ</li>
+      </ul>
+    </section>
 
     <div class="cf-divider">★ ★ ★</div>
 
@@ -452,6 +487,7 @@
         <li>15 body systems you can toggle on and off <strong>(included)</strong></li>
         <li>Search across 3,432 named structures <strong>(included)</strong></li>
         <li>Isolate, explode and four camera presets <strong>(included)</strong></li>
+        <li>10 close-up organ views you can open up and explode <strong>(included)</strong></li>
         <li>Works on phone, tablet and laptop, no app needed <strong>(included)</strong></li>
         <li>Lifetime Access + Free Updates <strong>(included)</strong></li>
         <li>BONUS #1: Complete 22-Subject Study Bundle, 2,800+ pages <strong>($145 value)</strong></li>
@@ -499,7 +535,7 @@
       <div class="cf-faq-a">Yes. Head to toe: 2,234 structures across all 15 systems. It's built on an adult male reference anatomy, so the reproductive system shown is male.</div>
 
       <div class="cf-faq-q">Q: Where does the anatomy come from?</div>
-      <div class="cf-faq-a">From BodyParts3D, a reference dataset built by a life-science database centre and used in universities worldwide, adapted for the browser and labelled with standard anatomical names. Full credits are inside the atlas.</div>
+      <div class="cf-faq-a">From BodyParts3D, a reference dataset built by a life-science database centre and used in universities worldwide, adapted for the browser and labelled with standard anatomical names. Most of the close-up organs come from the Human Reference Atlas, a project funded by the US National Institutes of Health. Full credits are inside the atlas.</div>
 
       <div class="cf-faq-q">Q: Do I get lifetime access?</div>
       <div class="cf-faq-a">Yes. Pay once, keep it forever, including every future update.</div>
