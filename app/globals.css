@@ -268,3 +268,5 @@ button:not([data-slot]):hover{color:#fff;background:#ffffff0d}
 /* The logo image has its own light background, so on the dark stage it sits on a rounded light tile. */
 .identity-logo{border-radius:12px;filter:none}
 @media(max-width:767px),(max-height:600px) and (orientation:landscape){.identity-logo{border-radius:8px}}
+/* Phone panels that set their own light background */
+.layers-panel.mobile-open,.bottom-dock{background:#12161cf2}
