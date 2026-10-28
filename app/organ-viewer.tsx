@@ -110,6 +110,8 @@ export default function OrganViewer({organ,onClose,thumbnail=false,startInside=f
 
   // ---------- camera ----------
   let fitRadius=.6;const goal={active:false,target:new T.Vector3(),position:new T.Vector3()};
+  // A touch or drag always wins over the automatic framing.
+  let dragging=false;controls.addEventListener('start',()=>{dragging=true;goal.active=false;});controls.addEventListener('end',()=>{dragging=false;});
   const layout=()=>{const w=el.clientWidth,h=el.clientHeight,mobile=w<768;return mobile?{left:12,right:w-12,top:118,bottom:h-196}:{left:24,right:w-392,top:96,bottom:h-128};};
   const applyViewOffset=()=>{const w=el.clientWidth,h=el.clientHeight,r=layout();if(thumbnail){camera.clearViewOffset();return;}camera.setViewOffset(w,h,w/2-(r.left+r.right)/2,h/2-(r.top+r.bottom)/2,w,h);};
   const distanceFor=(radius:number)=>{const w=el.clientWidth,h=el.clientHeight,r=thumbnail?{left:0,right:w,top:0,bottom:h}:layout(),availW=Math.max(140,r.right-r.left),availH=Math.max(140,r.bottom-r.top);const fovV=T.MathUtils.degToRad(camera.fov),fovH=2*Math.atan(Math.tan(fovV/2)*camera.aspect);const fv=radius/Math.sin(fovV/2)*h/availH,fh=radius/Math.sin(fovH/2)*w/availW;return Math.max(fv,fh)*(thumbnail?.96:1.02);};
@@ -220,7 +222,10 @@ export default function OrganViewer({organ,onClose,thumbnail=false,startInside=f
     const bounds=new T.Box3();for(const p of parts)if(p.mesh.visible)bounds.union(p.box.clone().translate(p.mesh.position));
     const sphere=bounds.isEmpty()?new T.Sphere(new T.Vector3(),fitRadius):bounds.getBoundingSphere(new T.Sphere());
     const blend=T.MathUtils.smoothstep(explodeNow,0,.25),aim=sphere.center.clone().multiplyScalar(blend),radius=T.MathUtils.lerp(fitRadius,Math.max(fitRadius,sphere.radius*1.02),blend);
-    const dir=camera.position.clone().sub(controls.target).normalize();goal.target.copy(aim);goal.position.copy(aim).addScaledVector(dir,distanceFor(radius));goal.active=true;
+    const dir=camera.position.clone().sub(controls.target).normalize(),distance=distanceFor(radius);
+    // The zoom-out limit grows with the spread, so the camera can always reach the framing it aims for.
+    controls.maxDistance=Math.max(8,distance*1.25);
+    if(!dragging){goal.target.copy(aim);goal.position.copy(aim).addScaledVector(dir,distance);goal.active=true;}
     occlusionDue=0;dirty=true;}
    if(goal.active){controls.target.lerp(goal.target,1-Math.exp(-dt*7));camera.position.lerp(goal.position,1-Math.exp(-dt*7));if(camera.position.distanceTo(goal.position)<.002&&controls.target.distanceTo(goal.target)<.002)goal.active=false;dirty=true;lastMove=now;}
    controls.update();if(controls.autoRotate)dirty=true;
