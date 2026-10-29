@@ -1,0 +1,409 @@
+<style>
+  /* === Brand tokens === */
+  .cf-co-sidebar-root {
+    --blue: #1A6BFF;
+    --blue-dark: #0F4FCC;
+    --blue-deep: #060D2E;
+    --gold: #E89B0A;
+    --gold-dark: #C77700;
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --bg-soft: #F7F9FC;
+    --bg-tint: #EEF4FF;
+    --border: #E5EAF2;
+    --text: #060D2E;
+    --text-muted: #5B6B8A;
+  }
+  /* === Reset === */
+  .cf-co-sidebar-root * { margin: 0; padding: 0; box-sizing: border-box; }
+  .cf-co-sidebar-root { font-family: Arial, Helvetica, sans-serif; }
+  /* === Sidebar container === */
+  .cf-co-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 24px;
+    padding: 0 16px;
+  }
+  /* ORDER SUMMARY CARD */
+  .cf-co-card {
+    background: #fff;
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(26,107,255,0.10);
+  }
+  .cf-co-card-header {
+    background: var(--blue);
+    color: #fff;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cf-co-card-header h3 {
+    color: #fff !important;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .cf-co-card-badge {
+    background: var(--gold);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--gold-dark);
+  }
+  .cf-co-card-body { padding: 20px; }
+  /* Product row */
+  .cf-co-product-row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .cf-co-product-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 6px;
+    background: var(--bg-tint);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    border: 1px solid var(--border);
+  }
+  .cf-co-product-info { flex: 1; min-width: 0; }
+  .cf-co-product-info h4 {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text) !important;
+    margin: 0 0 4px;
+    line-height: 1.3;
+  }
+  .cf-co-product-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0 0 6px;
+  }
+  .cf-co-product-rating {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .cf-co-product-rating .cf-co-stars {
+    color: var(--gold);
+    letter-spacing: 1px;
+    font-size: 13px;
+    margin-right: 4px;
+  }
+  /* What's included title */
+  .cf-co-includes-title {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0 0 10px;
+  }
+  /* Includes list */
+  .cf-co-includes-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cf-co-includes-list li {
+    list-style: none !important;
+    padding: 0 0 0 24px !important;
+    margin: 0 !important;
+    position: relative;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .cf-co-includes-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--green);
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+  .cf-co-includes-list li strong {
+    color: var(--gold-dark);
+    font-weight: bold;
+  }
+  /* Savings banner */
+  .cf-co-savings {
+    background: #F4FFF4;
+    border: 2px solid var(--green);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+    margin-top: 18px;
+  }
+  .cf-co-savings .cf-co-savings-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--green-dark);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .cf-co-savings .cf-co-savings-prices {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .cf-co-old-price {
+    font-size: 16px;
+    color: var(--text-muted);
+    text-decoration: line-through;
+    font-weight: normal;
+  }
+  .cf-co-new-price {
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--blue);
+    line-height: 1;
+  }
+  .cf-co-discount-pill {
+    background: var(--gold);
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    border: 1px solid var(--gold-dark);
+  }
+  /* GUARANTEE BOX */
+  .cf-co-guarantee {
+    background: #FFF8E5;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .cf-co-guarantee-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--gold);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 22px;
+    border: 2px solid var(--gold-dark);
+  }
+  .cf-co-guarantee-text { flex: 1; }
+  .cf-co-guarantee-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--text);
+    margin: 0 0 4px;
+  }
+  .cf-co-guarantee-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+  /* TESTIMONIAL */
+  .cf-co-testimonial {
+    background: var(--bg-soft);
+    border-left: 4px solid var(--gold);
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .cf-co-testimonial-stars {
+    color: var(--gold);
+    letter-spacing: 2px;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .cf-co-testimonial-quote {
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+    margin: 0 0 12px;
+  }
+  .cf-co-testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+  .cf-co-testimonial-avatar {
+    width: 32px;
+    height: 32px;
+    background: var(--blue);
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+    flex-shrink: 0;
+    border: 2px solid var(--blue-dark);
+  }
+  .cf-co-testimonial-author-info {
+    flex: 1;
+    line-height: 1.3;
+  }
+  .cf-co-testimonial-name {
+    font-weight: bold;
+    color: var(--text);
+    font-size: 13px;
+  }
+  .cf-co-testimonial-meta {
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+  .cf-co-testimonial-verified {
+    background: var(--green);
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid var(--green-dark);
+  }
+  /* PAYMENT METHODS */
+  .cf-co-payment {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .cf-co-payment-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 10px;
+  }
+  .cf-co-payment-icons {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .cf-co-pm-icon {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+  }
+  .cf-co-pm-icon.visa { color: #1434CB; }
+  .cf-co-pm-icon.mc { color: #EB001B; }
+  .cf-co-pm-icon.amex { color: #006FCF; }
+  .cf-co-pm-icon.disc { color: #FF6000; }
+  /* === Mobile === */
+  @media (max-width: 980px) {
+    .cf-co-sidebar {
+      position: static;
+      margin-top: 20px;
+      padding: 0 10px;
+    }
+  }
+  @media (max-width: 600px) {
+    .cf-co-card-body { padding: 16px; }
+    .cf-co-product-img { width: 56px; height: 56px; font-size: 26px; }
+    .cf-co-product-info h4 { font-size: 14px; }
+    .cf-co-new-price { font-size: 26px; }
+  }
+</style>
+<div class="cf-co-sidebar-root">
+  <div class="cf-co-sidebar">
+    <div class="cf-co-card">
+      <div class="cf-co-card-header">
+        <h3>Your Order</h3>
+        <span class="cf-co-card-badge">Best Value</span>
+      </div>
+      <div class="cf-co-card-body">
+        <div class="cf-co-product-row">
+          <div class="cf-co-product-img"><img src="https://atlas.medschoolzone.com/organs/promo/heart.webp" alt="3D heart" style="width:52px;height:52px;object-fit:contain;display:block;"></div>
+          <div class="cf-co-product-info">
+            <h4>MedSchoolZone 3D Anatomy Atlas</h4>
+            <div class="cf-co-product-meta">2,234 structures · 15 systems · Lifetime access</div>
+            <div class="cf-co-product-rating">
+              <span>From MedSchoolZone, used by 15,000+ med students</span>
+            </div>
+          </div>
+        </div>
+        <div class="cf-co-includes-title">What's Included</div>
+        <ul class="cf-co-includes-list">
+          <li>The whole body in 3D: 2,234 structures across 15 systems</li>
+          <li>💥 Explode view: pull the body apart into every piece</li>
+          <li>🫀 10 organs up close you can cut open and pull apart</li>
+          <li>Search 3,432 named structures and jump straight to them</li>
+          <li><strong>BONUS:</strong> All 22 subject PDFs, 2,800+ pages ($145 value)</li>
+          <li><strong>BONUS:</strong> 5-Minute Quick-Start Walkthrough ($17 value)</li>
+          <li><strong>BONUS:</strong> Priority Email Support ($14 value)</li>
+          <li>Runs in your browser · Works on every device · Free updates</li>
+        </ul>
+        <div class="cf-co-savings">
+          <div class="cf-co-savings-label">💰 You're saving $116 today</div>
+          <div class="cf-co-savings-prices">
+            <span class="cf-co-old-price">$145</span>
+            <span class="cf-co-new-price">$29</span>
+            <span class="cf-co-discount-pill">80% OFF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cf-co-guarantee">
+      <div class="cf-co-guarantee-icon">🛡️</div>
+      <div class="cf-co-guarantee-text">
+        <div class="cf-co-guarantee-title">100% Money-Back Guarantee</div>
+        <p class="cf-co-guarantee-sub">Not satisfied within 30 days? Email us and we'll refund every cent. No questions asked.</p>
+      </div>
+    </div>
+    <div class="cf-co-testimonial">
+      <div class="cf-co-testimonial-name" style="margin-bottom:8px;">What happens after you pay</div>
+      <p class="cf-co-testimonial-quote" style="font-style:normal;margin:0;">
+        <strong>1.</strong> Your MedSchoolZone login arrives by email instantly.<br>
+        <strong>2.</strong> Log in to your member area.<br>
+        <strong>3.</strong> Tap "3D Anatomy Atlas" and it opens in your browser, on phone, tablet or laptop. Your 22 subject PDFs are right there too.
+      </p>
+    </div>
+    <div class="cf-co-payment">
+      <div class="cf-co-payment-title">🔒 Accepted Payment Methods</div>
+      <div class="cf-co-payment-icons">
+        <span class="cf-co-pm-icon visa">VISA</span>
+        <span class="cf-co-pm-icon mc">MC</span>
+        <span class="cf-co-pm-icon amex">AMEX</span>
+        <span class="cf-co-pm-icon disc">DISC</span>
+      </div>
+    </div>
+  </div>
+</div>

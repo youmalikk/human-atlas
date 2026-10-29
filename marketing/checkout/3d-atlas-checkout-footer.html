@@ -1,0 +1,356 @@
+<style>
+  /* === Brand tokens === */
+  .cf-co-footer-root {
+    --blue: #1A6BFF;
+    --blue-dark: #0F4FCC;
+    --blue-deep: #060D2E;
+    --gold: #E89B0A;
+    --gold-dark: #C77700;
+    --green: #16A34A;
+    --green-dark: #15803D;
+    --bg-soft: #F7F9FC;
+    --bg-tint: #EEF4FF;
+    --border: #E5EAF2;
+    --text: #060D2E;
+    --text-muted: #5B6B8A;
+  }
+  /* === Reset === */
+  .cf-co-footer-root * { margin: 0; padding: 0; box-sizing: border-box; }
+  .cf-co-footer-root { font-family: Arial, Helvetica, sans-serif; }
+  /* === Wrapper === */
+  .cf-co-footer {
+    max-width: 1200px;
+    margin: 32px auto 0;
+    padding: 0 16px;
+  }
+  /* SECURITY GRID */
+  .cf-co-security-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .cf-co-security-item {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .cf-co-security-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 10px;
+    background: var(--bg-tint);
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    line-height: 1;
+  }
+  .cf-co-security-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text);
+    margin: 0 0 4px;
+  }
+  .cf-co-security-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
+  /* FAQ SECTION */
+  .cf-co-faq {
+    margin-bottom: 36px;
+  }
+  .cf-co-faq-head {
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .cf-co-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .cf-co-faq-head h3 {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--blue-deep);
+    margin: 0;
+    line-height: 1.2;
+  }
+  .cf-co-faq-head h3 .hl-blue {
+    background: #FFE082;
+    color: var(--blue-deep);
+    padding: 2px 8px;
+  }
+  .cf-co-faq-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+  .cf-co-faq-item {
+    background: #fff !important;
+    border: 2px solid var(--border) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .cf-co-faq-item.open {
+    border-color: var(--blue) !important;
+  }
+  .cf-co-faq-q {
+    width: 100% !important;
+    padding: 16px 20px !important;
+    background: transparent !important;
+    border: 0 !important;
+    text-align: left !important;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
+    color: var(--text) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 14px !important;
+    line-height: 1.4;
+  }
+  .cf-co-faq-q:hover { background: var(--bg-soft) !important; }
+  .cf-co-faq-item.open .cf-co-faq-q { color: var(--blue) !important; }
+  .cf-co-faq-chevron {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    color: var(--text-muted);
+  }
+  .cf-co-faq-item.open .cf-co-faq-chevron {
+    transform: rotate(180deg);
+    color: var(--blue);
+  }
+  .cf-co-faq-a {
+    padding: 0 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    border-top: 0 solid var(--border);
+  }
+  .cf-co-faq-item.open .cf-co-faq-a {
+    padding: 14px 20px 18px;
+    max-height: 400px;
+    border-top: 1px solid var(--border);
+  }
+  .cf-co-faq-a strong { color: var(--text); font-weight: bold; }
+  /* CONTACT BLOCK */
+  .cf-co-contact {
+    background: var(--blue-deep);
+    color: #fff;
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .cf-co-contact h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff !important;
+    margin: 0 0 8px;
+  }
+  .cf-co-contact p {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    margin: 0 0 18px;
+  }
+  .cf-co-contact-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: #fff !important;
+    padding: 14px 32px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid var(--gold-dark);
+    box-shadow: 0 2px 0 var(--gold-dark);
+    transition: background 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .cf-co-contact-btn:hover {
+    background: var(--gold-dark);
+  }
+  /* COPYRIGHT */
+  .cf-co-copyright {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+  }
+  .cf-co-copyright-links {
+    margin-bottom: 10px;
+  }
+  .cf-co-copyright-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+  }
+  .cf-co-copyright-links a:hover {
+    color: var(--blue);
+    text-decoration: underline;
+  }
+  .cf-co-disclaimer {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* === Mobile === */
+  @media (max-width: 768px) {
+    .cf-co-footer { padding: 0 10px; margin-top: 24px; }
+    .cf-co-security-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .cf-co-security-item { padding: 14px 10px; }
+    .cf-co-security-icon { width: 38px; height: 38px; font-size: 18px; }
+    .cf-co-security-title { font-size: 13px; }
+    .cf-co-security-sub { font-size: 11px; }
+    .cf-co-faq-head h3 { font-size: 22px; }
+    .cf-co-faq-q { font-size: 14px !important; padding: 14px 16px !important; }
+    .cf-co-faq-a { font-size: 13px; }
+    .cf-co-faq-item.open .cf-co-faq-a { padding: 12px 16px 14px; }
+    .cf-co-contact { padding: 22px 18px; }
+    .cf-co-contact h3 { font-size: 18px; }
+    .cf-co-contact-btn { padding: 12px 22px; font-size: 14px; }
+    .cf-co-copyright-links a {
+      display: inline-block;
+      margin: 4px 8px;
+    }
+  }
+</style>
+<div class="cf-co-footer-root">
+  <div class="cf-co-footer">
+    <div class="cf-co-security-grid">
+      <div class="cf-co-security-item">
+        <div class="cf-co-security-icon">🔒</div>
+        <div class="cf-co-security-title">256-bit SSL</div>
+        <p class="cf-co-security-sub">Bank-level encryption protects your data</p>
+      </div>
+      <div class="cf-co-security-item">
+        <div class="cf-co-security-icon">🛡️</div>
+        <div class="cf-co-security-title">Secure Payment</div>
+        <p class="cf-co-security-sub">PCI-compliant processing</p>
+      </div>
+      <div class="cf-co-security-item">
+        <div class="cf-co-security-icon">✓</div>
+        <div class="cf-co-security-title">30-Day Guarantee</div>
+        <p class="cf-co-security-sub">Full refund within 30 days, no questions asked</p>
+      </div>
+      <div class="cf-co-security-item">
+        <div class="cf-co-security-icon">⚡</div>
+        <div class="cf-co-security-title">Instant Access</div>
+        <p class="cf-co-security-sub">Opens in your browser right after purchase</p>
+      </div>
+    </div>
+    <div class="cf-co-faq">
+      <div class="cf-co-faq-head">
+        <div class="cf-co-eyebrow">Quick Answers</div>
+        <h3>Common <span class="hl-blue">questions</span></h3>
+      </div>
+      <div class="cf-co-faq-list">
+        <div class="cf-co-faq-item">
+          <button class="cf-co-faq-q" onclick="this.parentElement.classList.toggle('open')">
+            When will I get access to the atlas?
+            <svg class="cf-co-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cf-co-faq-a">
+            Instantly. The moment your payment goes through, you get an email with your MedSchoolZone login, usually within 60 seconds. Log in and the atlas opens in your browser, with your <strong>22 subject PDFs</strong> in the same member area.
+          </div>
+        </div>
+        <div class="cf-co-faq-item">
+          <button class="cf-co-faq-q" onclick="this.parentElement.classList.toggle('open')">
+            Do I need to install an app?
+            <svg class="cf-co-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cf-co-faq-a">
+            No. The atlas <strong>runs in your browser</strong> on phone, tablet and laptop. The first time you open it, your browser downloads about 30 MB of 3D models, then it opens almost instantly.
+          </div>
+        </div>
+        <div class="cf-co-faq-item">
+          <button class="cf-co-faq-q" onclick="this.parentElement.classList.toggle('open')">
+            How does the billing work?
+            <svg class="cf-co-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cf-co-faq-a">
+            <strong>One payment of $29.</strong> No subscription and no recurring charges. You keep access for life, including every future update.
+          </div>
+        </div>
+        <div class="cf-co-faq-item">
+          <button class="cf-co-faq-q" onclick="this.parentElement.classList.toggle('open')">
+            Are the 22 subject PDFs really included?
+            <svg class="cf-co-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cf-co-faq-a">
+            Yes. All 22 MedSchoolZone subjects, <strong>2,800+ pages of PDF notes</strong> ($145 value), come free with your atlas. Find a structure in 3D, then read the page on it.
+          </div>
+        </div>
+        <div class="cf-co-faq-item">
+          <button class="cf-co-faq-q" onclick="this.parentElement.classList.toggle('open')">
+            Is it the whole body?
+            <svg class="cf-co-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cf-co-faq-a">
+            Yes. Head to toe: <strong>2,234 structures across 15 systems</strong>, plus 10 organs up close that you can cut open and pull apart. It's built on an adult male reference anatomy.
+          </div>
+        </div>
+        <div class="cf-co-faq-item">
+          <button class="cf-co-faq-q" onclick="this.parentElement.classList.toggle('open')">
+            Which exams is the atlas designed for?
+            <svg class="cf-co-faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cf-co-faq-a">
+            USMLE Step 1, 2 &amp; 3, PLAB / UKMLA, MCCQE, AMC, COMLEX, and IFOM. Anatomy is anatomy, and it's used by medical students in 50+ countries.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cf-co-contact">
+      <h3>Need help before you buy?</h3>
+      <p>Our team typically replies within 2 hours during business days.</p>
+      <a href="https://www.medschoolzone.com/contact-simple" class="cf-co-contact-btn">Contact Support →</a>
+    </div>
+    <div class="cf-co-copyright">
+      <div class="cf-co-copyright-links">
+        <a href="https://www.medschoolzone.com">Home</a>
+        <a href="https://www.medschoolzone.com/refund-policy-simple">Refund Policy</a>
+        <a href="https://www.medschoolzone.com/terms-of-service-simple">Terms</a>
+        <a href="https://www.medschoolzone.com/privacy-policy-simple">Privacy</a>
+        <a href="https://www.medschoolzone.com/contact-simple">Contact</a>
+      </div>
+      <div>© 2026 MedSchoolZone. All rights reserved. Built by medical students, for medical students.</div>
+      <p class="cf-co-disclaimer">
+        This site is not affiliated with USMLE, NBME, GMC, or any other medical licensing body. Results may vary. Testimonials reflect individual experience and do not guarantee similar outcomes. 3D models adapted from BodyParts3D (DBCLS) and the Human Reference Atlas (HuBMAP), used under Creative Commons licences. Full credits are inside the atlas.
+      </p>
+    </div>
+  </div>
+</div>
