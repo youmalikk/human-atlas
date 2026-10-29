@@ -123,6 +123,13 @@
   .cf-sample.cf-sample-auto img { height: auto !important; max-height: none !important; object-fit: initial; display: block; }
   .cf-samples-grid { align-items: start; }
   .cf-sample-label { text-align: center; font-size: 14px; font-weight: bold; color: #333; margin-top: 8px; }
+  /* === How you get access (3 steps) === */
+  .cf-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0 10px; }
+  .cf-step { background: #F2F6FD; border: 1px solid #d6e2f7; border-radius: 8px; padding: 16px 14px; text-align: center; }
+  .cf-step-num { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: #1A6BFF; color: #fff; font-weight: bold; font-size: 17px; margin-bottom: 10px; }
+  .cf-step-title { font-size: 17px; font-weight: bold; color: #060D2E; margin-bottom: 6px; }
+  .cf-step p { font-size: 15px; color: #333; line-height: 1.45; margin: 0; }
+  .cf-steps-note { text-align: center; font-size: 15px; color: #555; font-style: italic; margin: 6px 0 0; }
   /* === Organ views grid (images served from the atlas site) === */
   .cf-organs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 20px 0 8px; padding: 14px; background: #F2F6FD; border: 1px solid #d6e2f7; border-radius: 8px; }
   .cf-organ { background: #fff; border: 1px solid #e3eaf6; border-radius: 8px; padding: 6px 4px 8px; text-align: center; }
@@ -171,6 +178,9 @@
     .cf-exams { gap: 6px; }
     .cf-exam { font-size: 12px; padding: 6px 9px; gap: 5px; }
     .cf-legend-grid { grid-template-columns: repeat(2, 1fr); }
+    .cf-steps { grid-template-columns: 1fr; gap: 8px; }
+    .cf-step { display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; text-align: left; padding: 14px; }
+    .cf-step-num { grid-row: span 2; margin-bottom: 0; }
     .cf-organs { gap: 5px; padding: 8px; }
     .cf-organ { padding: 4px 2px 6px; }
     .cf-organ span { font-size: 10.5px; }
@@ -504,6 +514,27 @@
         🔒 Secure SSL Checkout · 💳 Pay With Card · ⚡ Instant Access
       </p>
     </div>
+
+    <!-- ========== HOW YOU GET ACCESS ========== -->
+    <h2 class="cf-h2">Here's How You Get Access <span class="hl-yellow">(Under 2 Minutes)</span></h2>
+    <div class="cf-steps">
+      <div class="cf-step">
+        <span class="cf-step-num">1</span>
+        <div class="cf-step-title">Checkout</div>
+        <p>Complete your order on the secure checkout page.</p>
+      </div>
+      <div class="cf-step">
+        <span class="cf-step-num">2</span>
+        <div class="cf-step-title">Check your email</div>
+        <p>Your MedSchoolZone login arrives instantly. Log in to your member area.</p>
+      </div>
+      <div class="cf-step">
+        <span class="cf-step-num">3</span>
+        <div class="cf-step-title">Open the atlas</div>
+        <p>Tap "3D Anatomy Atlas" and it opens straight in your browser, on phone, tablet or laptop. Your 22 subject PDFs are right there too.</p>
+      </div>
+    </div>
+    <p class="cf-steps-note">No app to download. Tip: add it to your home screen for one-tap access.</p>
 
     <div class="cf-guarantee">
       <div class="cf-guarantee-title">🛡️ 100% Money-Back Guarantee</div>
