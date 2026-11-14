@@ -1,0 +1,58 @@
+<!--
+  Added 2026-11-14 to the Customer Center dashboard Custom HTML element
+  (ClickFunnels > Workspace Settings > Customer Center > Customize), pasted
+  directly ABOVE the "<!-- YOUR SUBJECTS -->" comment.
+  Shows a card for each course the signed-in buyer is enrolled in:
+    89423 = 3D Anatomy Atlas  -> /3d-anatomy-atlas
+    87391 = The Recall System -> /the-recall-system
+  Hidden for buyers who own neither. Delete the block between the START/END
+  markers to undo; the rest of the dashboard code was left untouched.
+-->
+<!-- MSZ COURSES START: shows the 3D Atlas / Recall System cards to buyers enrolled in them. Delete this block to undo. -->
+<div class="cf-wrap-wide" id="msz-courses" style="display:none">
+  <h2 class="cf-h2">Your <span class="hl-yellow">Tools</span></h2>
+  <p class="cf-section-sub">Tap to open. They run right in your browser, nothing to install.</p>
+  <div id="msz-courses-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;max-width:720px;margin:16px auto 8px;"></div>
+  <div class="cf-divider">★ ★ ★</div>
+</div>
+<script>
+(function(){
+  var COURSES = {
+    "89423": { title: "3D Anatomy Atlas", desc: "Rotate, isolate and explode 2,234 structures, plus 10 organs up close.", cta: "Open the Atlas →", url: "/3d-anatomy-atlas", img: "https://statics.myclickfunnels.com/workspace/JGWBNA/image/24072695/file/97bbfe8d7dab03dc139d0b5260c5f246.png" },
+    "87391": { title: "The Recall System", desc: "Active recall flashcards for all 22 subjects.", cta: "Open The Recall System →", url: "/the-recall-system", img: "https://statics.myclickfunnels.com/workspace/JGWBNA/image/23197653/file/100bd11fd6a33b99f74cdca70bce6e53.png" }
+  };
+  var ORDER = ["89423", "87391"];
+  function enrolledIds() {
+    var c = (window.sessionData && window.sessionData.contact) || null;
+    if (!c) {
+      var s = document.querySelectorAll('script[id^="state-node-script"]');
+      for (var i = 0; i < s.length; i++) { try { var d = JSON.parse(s[i].textContent || '{}'); if (d && d.contact) { c = d.contact; break; } } catch (e) {} }
+    }
+    if (!c) return null;
+    var out = [];
+    (c.enrolled_course_ids || []).forEach(function (x) { x = String(x); if (out.indexOf(x) < 0) out.push(x); });
+    if (c.enrolled_courses && typeof c.enrolled_courses === 'object') { Object.keys(c.enrolled_courses).forEach(function (x) { if (out.indexOf(x) < 0) out.push(x); }); }
+    return out;
+  }
+  function render(list) {
+    var grid = document.getElementById('msz-courses-grid'), box = document.getElementById('msz-courses');
+    if (!grid || !box) return;
+    var html = '';
+    ORDER.forEach(function (id) {
+      if (list.indexOf(id) < 0) return;
+      var k = COURSES[id];
+      html += '<a href="' + k.url + '" style="display:block;text-decoration:none;color:#060D2E;background:#fff;border:2px solid #1A6BFF;overflow:hidden;">'
+        + '<img src="' + k.img + '" alt="' + k.title + '" style="width:100%;height:auto;display:block;">'
+        + '<div style="padding:12px 14px 16px;text-align:center;">'
+        + '<div style="font-size:18px;font-weight:bold;margin-bottom:4px;">' + k.title + '</div>'
+        + '<div style="font-size:14px;color:#46587a;line-height:1.4;margin-bottom:12px;">' + k.desc + '</div>'
+        + '<span style="display:inline-block;background:#1A6BFF;color:#fff;font-weight:bold;font-size:15px;padding:10px 18px;border-radius:6px;box-shadow:0 3px 0 #0F4FCC;">' + k.cta + '</span>'
+        + '</div></a>';
+    });
+    if (html) { grid.innerHTML = html; box.style.display = 'block'; }
+  }
+  var tries = 0;
+  (function tick() { var l = enrolledIds(); if (l) { render(l); return; } if (++tries < 40) setTimeout(tick, 250); })();
+})();
+</script>
+<!-- MSZ COURSES END -->
