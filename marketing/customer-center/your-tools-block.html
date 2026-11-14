@@ -18,7 +18,7 @@
 <script>
 (function(){
   var COURSES = {
-    "89423": { title: "3D Anatomy Atlas", desc: "Rotate, isolate and explode 2,234 structures, plus 10 organs up close.", cta: "Open the Atlas →", url: "/3d-anatomy-atlas", img: "https://statics.myclickfunnels.com/workspace/JGWBNA/image/24072695/file/97bbfe8d7dab03dc139d0b5260c5f246.png" },
+    "89423": { title: "3D Anatomy Atlas", desc: "Rotate, isolate and explode 2,234 structures, plus 10 organs up close.", cta: "Open the Atlas →", url: "/3d-anatomy-atlas", img: "" /* was image 24072695: https://statics.myclickfunnels.com/workspace/JGWBNA/image/24072695/file/97bbfe8d7dab03dc139d0b5260c5f246.png */ },
     "87391": { title: "The Recall System", desc: "Active recall flashcards for all 22 subjects.", cta: "Open The Recall System →", url: "/the-recall-system", img: "https://statics.myclickfunnels.com/workspace/JGWBNA/image/23197653/file/100bd11fd6a33b99f74cdca70bce6e53.png" }
   };
   var ORDER = ["89423", "87391"];
@@ -42,7 +42,7 @@
       if (list.indexOf(id) < 0) return;
       var k = COURSES[id];
       html += '<a href="' + k.url + '" style="display:block;text-decoration:none;color:#060D2E;background:#fff;border:2px solid #1A6BFF;overflow:hidden;">'
-        + '<img src="' + k.img + '" alt="' + k.title + '" style="width:100%;height:auto;display:block;">'
+        + (k.img ? '<img src="' + k.img + '" alt="' + k.title + '" style="width:100%;height:auto;display:block;">' : '')
         + '<div style="padding:12px 14px 16px;text-align:center;">'
         + '<div style="font-size:18px;font-weight:bold;margin-bottom:4px;">' + k.title + '</div>'
         + '<div style="font-size:14px;color:#46587a;line-height:1.4;margin-bottom:12px;">' + k.desc + '</div>'
