@@ -89,10 +89,10 @@
   .cf-exam { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 2px solid #E89B0A; padding: 7px 12px; font-size: 14px; font-weight: bold; color: #060D2E; line-height: 1.2; white-space: nowrap; }
   .cf-flag { font-size: 17px; line-height: 1; }
   /* === Stats strip === */
-  .cf-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
-  .cf-stat { background: #F2F6FD; border: 1px solid #d6e2f7; border-radius: 8px; padding: 14px 8px; text-align: center; }
+  .cf-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 20px 0; }
+  .cf-stat { background: #F2F6FD; border: 1px solid #d6e2f7; border-radius: 8px; padding: 14px 6px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
   .cf-stat .n { display: block; font-size: 30px; font-weight: bold; color: #1A6BFF; line-height: 1.1; }
-  .cf-stat .l { display: block; font-size: 13px; color: #46587a; margin-top: 4px; font-weight: bold; letter-spacing: .02em; }
+  .cf-stat .l { display: block; font-size: 13px; color: #46587a; margin-top: 6px; font-weight: bold; letter-spacing: .02em; line-height: 1.25; white-space: nowrap; }
   /* === Subject covers grid (all 22, same as the bundle page) === */
   .cf-covers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; align-items: start; margin: 20px 0 0; padding: 16px; background: #f9f9f9; border: 1px solid #ddd; }
   /* No fixed box around the covers: each image keeps its own height, so nothing gets cut off on phones. */
@@ -169,6 +169,7 @@
     .cf-yellow-box.cf-compact { font-size: 15px; }
     .cf-stats { gap: 6px; }
     .cf-stat .n { font-size: 24px; }
+    .cf-stat .l { font-size: 12px; letter-spacing: 0; }
     .cf-covers-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 10px; }
     .cf-devices { grid-template-columns: 1fr; gap: 14px; }
     .cf-samples-grid { grid-template-columns: repeat(2, 1fr); }
@@ -184,6 +185,10 @@
     .cf-organs { gap: 5px; padding: 8px; }
     .cf-organ { padding: 4px 2px 6px; }
     .cf-organ span { font-size: 10.5px; }
+  }
+  @media (max-width: 360px) {
+    .cf-stat { padding: 12px 3px; }
+    .cf-stat .l { font-size: 11px; }
   }
 </style>
 
@@ -211,9 +216,9 @@
       </div>
 
       <div class="cf-stats">
-        <div class="cf-stat"><span class="n">2,234</span><span class="l">STRUCTURES</span></div>
-        <div class="cf-stat"><span class="n">15</span><span class="l">BODY SYSTEMS</span></div>
-        <div class="cf-stat"><span class="n">3,432</span><span class="l">SEARCHABLE NAMES</span></div>
+        <div class="cf-stat"><span class="n">2,234</span><span class="l">3D<br>STRUCTURES</span></div>
+        <div class="cf-stat"><span class="n">15</span><span class="l">BODY<br>SYSTEMS</span></div>
+        <div class="cf-stat"><span class="n">3,432</span><span class="l">SEARCHABLE<br>NAMES</span></div>
       </div>
 
       <div class="cf-yellow-box cf-compact">
@@ -453,9 +458,9 @@
       <p class="cf-cover-caption">↑ All 22 subject books, included free with your atlas</p>
 
       <div class="cf-stats">
-        <div class="cf-stat"><span class="n">2,800+</span><span class="l">PAGES</span></div>
-        <div class="cf-stat"><span class="n">2,243+</span><span class="l">ILLUSTRATIONS</span></div>
-        <div class="cf-stat"><span class="n">1,423+</span><span class="l">MNEMONICS</span></div>
+        <div class="cf-stat"><span class="n">2,800+</span><span class="l">PAGES OF<br>NOTES</span></div>
+        <div class="cf-stat"><span class="n">2,243+</span><span class="l">MEDICAL<br>DIAGRAMS</span></div>
+        <div class="cf-stat"><span class="n">1,423+</span><span class="l">HIGH-YIELD<br>MNEMONICS</span></div>
       </div>
 
       <ul class="cf-list">
