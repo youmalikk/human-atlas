@@ -1,0 +1,101 @@
+<!--
+  MedSchoolZone link-in-bio page (Instagram bio link).
+  Paste into ONE Custom HTML element on a blank ClickFunnels page
+  (full-width section, 0 padding). Set the page background colour to #F2F6FD.
+  Links carry utm_source=instagram&utm_medium=bio so bio traffic shows up in your stats.
+-->
+<style>
+  .msz-lb * { margin: 0; padding: 0; box-sizing: border-box; }
+  .msz-lb {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+    background: #F2F6FD;
+    min-height: 100vh;
+    padding: 28px 16px 22px;
+    line-height: 1.4;
+  }
+  .msz-lb-wrap { max-width: 460px; margin: 0 auto; }
+
+  /* Top: logo + one line */
+  .msz-lb-logo { display: block; width: 150px; height: auto; margin: 0 auto 14px; }
+  .msz-lb-title { font-size: 22px; font-weight: bold; color: #060D2E; text-align: center; line-height: 1.25; margin-bottom: 6px; }
+  .msz-lb-title span { background: #FFE082; padding: 1px 6px; white-space: nowrap; }
+  .msz-lb-sub { font-size: 14px; color: #46587a; text-align: center; margin-bottom: 22px; }
+
+  /* Product cards */
+  .msz-lb-card {
+    display: flex; align-items: center; gap: 14px;
+    background: #fff; border: 2px solid #1A6BFF; box-shadow: 0 4px 0 #0F4FCC;
+    padding: 12px; margin-bottom: 16px;
+    text-decoration: none; color: #222;
+  }
+  .msz-lb-card:active { box-shadow: 0 1px 0 #0F4FCC; transform: translateY(3px); }
+  .msz-lb-thumb { flex: 0 0 96px; width: 96px; height: 96px; background: #f3f4f4; overflow: hidden; }
+  .msz-lb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .msz-lb-body { flex: 1 1 auto; min-width: 0; }
+  .msz-lb-tag { display: inline-block; font-size: 11px; font-weight: bold; letter-spacing: .08em; text-transform: uppercase; color: #060D2E; background: #FFE082; padding: 2px 7px; margin-bottom: 5px; }
+  .msz-lb-tag.new { background: #16A34A; color: #fff; }
+  .msz-lb-name { font-size: 17px; font-weight: bold; color: #060D2E; line-height: 1.2; margin-bottom: 4px; }
+  .msz-lb-desc { font-size: 13.5px; color: #46587a; line-height: 1.35; margin-bottom: 7px; }
+  .msz-lb-cta { font-size: 14px; font-weight: bold; color: #1A6BFF; }
+
+  /* Bottom */
+  .msz-lb-trust { text-align: center; font-size: 13px; color: #46587a; margin: 6px 0 18px; }
+  .msz-lb-foot { text-align: center; font-size: 12px; color: #8a96ab; }
+  .msz-lb-foot a { color: #8a96ab; text-decoration: underline; margin: 0 5px; }
+
+  @media (max-width: 360px) {
+    .msz-lb-thumb { flex-basis: 80px; width: 80px; height: 80px; }
+    .msz-lb-name { font-size: 16px; }
+  }
+</style>
+
+<div class="msz-lb">
+  <div class="msz-lb-wrap">
+
+    <img class="msz-lb-logo" src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/4150573/file/bcb87582999c5fe61a9435d02c3c647e.png" alt="MedSchoolZone">
+    <h1 class="msz-lb-title">Study Tools For <span>Med Students</span></h1>
+    <p class="msz-lb-sub">Pick one to see what's inside.</p>
+
+    <!-- 1. 22-Subject PDF Notes -->
+    <a class="msz-lb-card" href="https://www.medschoolzone.com/start?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">
+      <div class="msz-lb-thumb"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/22002744/file/c40594bd6b6eaffe19c4f30f26ee26b6.png" alt="22-Subject Study Notes"></div>
+      <div class="msz-lb-body">
+        <span class="msz-lb-tag">Bestseller</span>
+        <div class="msz-lb-name">22-Subject Study Notes</div>
+        <div class="msz-lb-desc">2,800+ pages of high-yield PDF notes for every subject.</div>
+        <div class="msz-lb-cta">Get the notes &rarr;</div>
+      </div>
+    </a>
+
+    <!-- 2. Notion Study Library -->
+    <a class="msz-lb-card" href="https://www.medschoolzone.com/medschoolzone-notion-template?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">
+      <div class="msz-lb-thumb"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/23223539/file/2eacd8c4f3d4e077ee263cbf7fde2a0f.png" alt="Notion Study Library"></div>
+      <div class="msz-lb-body">
+        <div class="msz-lb-name">Notion Study Library</div>
+        <div class="msz-lb-desc">All 22 subjects and 800+ conditions in one Notion workspace.</div>
+        <div class="msz-lb-cta">See the library &rarr;</div>
+      </div>
+    </a>
+
+    <!-- 3. 3D Anatomy Atlas (swap the image for the new cover once it's uploaded) -->
+    <a class="msz-lb-card" href="https://www.medschoolzone.com/3d-atlas?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">
+      <div class="msz-lb-thumb"><img src="https://statics.myclickfunnels.com/workspace/JGWBNA/image/24126264/file/444c72948785c61bd6789302d7957db4.jpg" alt="3D Anatomy Atlas"></div>
+      <div class="msz-lb-body">
+        <span class="msz-lb-tag new">New</span>
+        <div class="msz-lb-name">3D Anatomy Atlas</div>
+        <div class="msz-lb-desc">Rotate, isolate and explode 2,234 structures in your browser.</div>
+        <div class="msz-lb-cta">See the atlas &rarr;</div>
+      </div>
+    </a>
+
+    <p class="msz-lb-trust">Used by 15,000+ med students in 50+ countries</p>
+
+    <p class="msz-lb-foot">
+      <a href="https://www.medschoolzone.com/contact-simple">Contact</a>
+      <a href="https://www.medschoolzone.com/terms-of-service-simple">Terms</a>
+      <a href="https://www.medschoolzone.com/privacy-policy-simple">Privacy</a>
+    </p>
+
+  </div>
+</div>
